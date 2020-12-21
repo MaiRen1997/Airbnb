@@ -1,5 +1,5 @@
 <template>
-  <div>这是index页面</div>
+  <div>这是test页面</div>
 </template>
 
 <script>
@@ -17,4 +17,4 @@ export default {
   methods: {}
 };
 </script>
-<style lang='scss'></style>
+<style lang='less' scoped></style>
