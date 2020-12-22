@@ -1,13 +1,7 @@
 <template>
-  <div class="contain">
-    <div class="box"></div>
-    <router-link to="/home">Home</router-link>|    
-    <router-link to="/test">Test</router-link>|
-    <router-link to="/loginPassword">loginPassword</router-link>|
-    <router-link to="/loginPhone">loginPhone</router-link>|
-    <router-link to="/resetAccount">resetAccount</router-link>|
-    <router-link to="/resign">resign</router-link>|
-    <router-view></router-view>
+
+  <div>
+      <router-view></router-view>
   </div>  
 </template> 
 
@@ -34,14 +28,4 @@ export default defineComponent ({
   },
 })
 </script>
-
-<style lang="less" scoped>
-.box {
-  width: 100px;
-  height: 100px;
-  background: red;
-}
-.contain{
-  font-size: 36px;
-}
-</style>
+<style lang="less" scope></style>

@@ -10,19 +10,19 @@ const routes = [
   },
   { 
     path: '/loginPassword',
-    component: () => import('../views/loginPassword.vue')
+    component: () => import('../views/login/loginPassword.vue')
   },
   { 
     path: '/loginPhone',
-    component: () => import('../views/loginPhone.vue')
+    component: () => import('../views/login/loginPhone.vue')
   },
   { 
     path: '/resetAccount',
-    component: () => import('../views/resetAccount.vue')
+    component: () => import('../views/login/resetAccount.vue')
   },
   { 
     path: '/resign',
-    component: () => import('../views/resign.vue'),
+    component: () => import('../views/login/resign.vue'),
     children:[{
       path:'input',
       component: ()=> import('../views/input/input.vue'),

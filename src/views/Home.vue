@@ -1,8 +1,21 @@
 <template>
-  <div>这是Home页面</div>
-  <van-button type="primary">主要按钮</van-button>
-  <!-- 复选框 -->
-  <van-checkbox v-model="checked">复选框</van-checkbox>
+  <div>
+    <van-nav-bar
+      title="标题"
+      right-text="按钮"
+      left-arrow
+      @click-left="onClickLeft"
+      @click-right="onClickRight"
+    >
+      <template #right>
+        <van-icon name="search" size="18" />
+        <van-icon name="search" size="18" />
+      </template>
+    </van-nav-bar>
+    <div class="test">
+        <p class="hello">Hello</p>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -15,9 +28,34 @@ export default {
 
   computed: {},
 
-  mounted() {},
+  mounted() {
+    console.log(1);
+    this.getdata();
+  },
 
-  methods: {}
+  methods: {
+    getdata(){
+      console.log(1);
+      fetch("http://10.31.162.36:8088/api/user//searchUser")
+      .then(res=>res.json())
+      .then(res=>{
+        console.log(res)
+        })
+    }
+  }
 };
 </script>
-<style lang='less' scoped></style>
+<style lang="less" scope>
+.test{
+  width:320px;
+  height:160px;
+  background-color: bisque;
+  text-align: center;
+
+  .hello {
+  color:red;
+  font-size: 20px;
+  }
+}
+
+</style>
