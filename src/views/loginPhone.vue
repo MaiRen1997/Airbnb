@@ -1,8 +1,5 @@
 <template>
-  <div>这是Home页面</div>
-  <van-button type="primary">主要按钮</van-button>
-  <!-- 复选框 -->
-  <van-checkbox v-model="checked">复选框</van-checkbox>
+  <div>这是手机登录页面</div>
 </template>
 
 <script>
