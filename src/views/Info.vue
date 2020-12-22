@@ -1,8 +1,8 @@
 <template>
-  <div>这是test页面</div>
+  <div>消息</div>
 </template>
 
-<script>
+<script lang='ts'>
 export default {
   data() {
     return {};

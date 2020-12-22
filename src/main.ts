@@ -2,17 +2,33 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { router } from "./route/index";
 import './index.css'
-//引入vant的button组件
-import { Button } from 'vant';
+//引入vant css样式
 import 'vant/lib/index.css';
-import './libs/rem.ts';
+//引入全局less文件
+import './assets/css/style.less'
+//引入postcss相关文件
+import "amfe-flexible"
 
 //引入复选框
-import { Checkbox, CheckboxGroup, NavBar, Icon } from 'vant';
-
+import {
+  Checkbox,
+  CheckboxGroup,
+  NavBar,
+  Icon,
+  Swipe,
+  SwipeItem,
+  Grid,
+  GridItem,
+  Tabbar,
+  TabbarItem,
+  Button,
+  Search,
+  Toast
+} from 'vant';
 
 
 const app = createApp(App);
+
 //注意顺序
 //使用按钮
 app.use(Button);
@@ -23,6 +39,20 @@ app.use(CheckboxGroup);
 app.use(NavBar);
 //使用icon
 app.use(Icon);
+//引入轮播图
+app.use(Swipe);
+app.use(SwipeItem);
+//引入宫格
+app.use(Grid);
+app.use(GridItem);
+//引入底部标签栏
+app.use(Tabbar);
+app.use(TabbarItem);
+//引入搜索框
+app.use(Search);
+//引入轻提示
+app.use(Toast);
+
 
 app.use(router);
 app.mount('#app');

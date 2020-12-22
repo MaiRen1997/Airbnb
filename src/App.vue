@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="app">
       <router-view></router-view>
-  </div>  
+  </div>
 </template> 
 
 <script lang="ts">
@@ -15,9 +15,7 @@ import { useRoute, useRouter } from "vue-router";
 export default defineComponent ({
   name: 'App',
   data(){
-    return {
-      
-    } 
+    return {} 
   },
   components: {
     /* HelloWorld */
@@ -27,7 +25,6 @@ export default defineComponent ({
     //     console.log(route);
     //     console.log(router);
     // });
-
     const route = useRoute();
     const router = useRouter();
     //复选框
@@ -36,4 +33,8 @@ export default defineComponent ({
   },
 })
 </script>
-<style lang="" scope></style>
+<style lang="less" scope>
+.app {
+  padding-bottom:50px;
+}
+</style>

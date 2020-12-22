@@ -4,14 +4,37 @@ const About = { template: '<div>这是Test页面</div>' }
 import { createRouter, createWebHashHistory } from "vue-router"
 
 const routes = [
-  { 
-    path: '/home',
-    component: () => import('../views/Home.vue')
+  {
+    path:'/',
+    component: () => import('../views/index.vue'),
+    children:[
+      {
+        path:'/',
+        redirect: '/home'
+      },
+      { 
+        path: 'home',
+        component: () => import('../views/Home.vue')
+      },
+      { 
+        path: 'community',
+        component: () => import('../views/community.vue')
+      },
+      { 
+        path: 'info',
+        component: () => import('../views/info.vue')
+      },
+      { 
+        path: 'mine',
+        component: () => import('../views/mine.vue')
+      }
+    ]
   },
-  { 
-    path: '/test',
-    component: () => import('../views/test.vue')
+  {
+    path:'/search',
+    component: () => import('../views/Search.vue')
   }
+  
 ] 
 export const router = createRouter({
   history: createWebHashHistory(),
