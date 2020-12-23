@@ -1,0 +1,16 @@
+.vant-search {
+  margin-top: 50px ;
+}
+.van-search__content {
+  height: 50px;
+  line-height: 50px;
+}
+.van-field__body {
+  height: 50px;
+}
+.van-field__control {
+  height: 50px;
+}
+.van-button--primary {
+  /* background: red;  */
+}
