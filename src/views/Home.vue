@@ -3,16 +3,20 @@
     <!-- 头部 -->
     <van-nav-bar
       @click-left="onClickLeft"
+      title="标题"
       @click-right="onClickRight"
     >
       <template #left>
         <van-icon name="coupon-o" size="20" />
       </template>
       <template #right>
-        <van-icon name="search" size="22" />
-        <van-icon name="video-o" size="22" style="margin-left:20px" />
+        <van-icon name="video-o" size="22" />
       </template>
     </van-nav-bar>
+    <!-- 搜索按钮 -->
+    <van-button type="default" to="/search">
+      <van-icon name="search"  />
+    </van-button>
 
     <!-- 轮播图 -->
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
@@ -42,7 +46,7 @@
 </template>
 
 <script>
-import textImg from '../assets/logo.png'
+import textImg from '../assets/logo.png';
 
 export default {
   data() {
@@ -93,7 +97,10 @@ export default {
       .then(res=>{
         console.log(res)
         })
-    }
+    },
+      onClickRight() {
+      Toast('按钮');
+    },
   }
 };
 </script>

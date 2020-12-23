@@ -6,7 +6,7 @@ const routes = [
     children:[
       {
         path:'/',
-        redirect: '/home'
+        redirect: 'home'
       },
       { 
         path: 'home',
