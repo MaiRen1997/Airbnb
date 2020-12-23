@@ -1,5 +1,4 @@
 <template>
-  <div>这是密码登录页面</div>
   <van-nav-bar
     title="登录"
     left-text="返回"
