@@ -6,25 +6,17 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-//引入helloWorld组件
-// import HelloWorld from './components/HelloWorld.vue'
 //引入路由
 import { onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-
 export default defineComponent ({
   name: 'App',
   data(){
     return {} 
   },
   components: {
-    /* HelloWorld */
   },
-  setup(/* props, context */) {
-    // onMounted(() => {
-    //     console.log(route);
-    //     console.log(router);
-    // });
+  setup() {
     const route = useRoute();
     const router = useRouter();
     //复选框

@@ -80,9 +80,21 @@ export default {
 
   computed: {},
 
-  mounted() {},
+  mounted() {
+    console.log(1);
+    this.getdata();
+  },
 
-  methods: {}
+  methods: {
+    getdata(){
+      console.log(1);
+      fetch("http://10.31.162.36:8088/api/user//searchUser")
+      .then(res=>res.json())
+      .then(res=>{
+        console.log(res)
+        })
+    }
+  }
 };
 </script>
 <style lang="less" scope>

@@ -23,7 +23,8 @@ import {
   TabbarItem,
   Button,
   Search,
-  Toast
+  Toast,
+  Field
 } from 'vant';
 
 
@@ -35,9 +36,10 @@ app.use(Button);
 //使用复选框
 app.use(Checkbox);
 app.use(CheckboxGroup);
-//使用导航栏
+//引入导航栏
 app.use(NavBar);
-//使用icon
+//引入输入框
+app.use(Field);
 app.use(Icon);
 //引入轮播图
 app.use(Swipe);
@@ -52,7 +54,11 @@ app.use(TabbarItem);
 app.use(Search);
 //引入轻提示
 app.use(Toast);
-
+//引入搜索框
+app.use(Search);
+//自定义图片
+app.use(Grid)
+app.use(GridItem)
 
 app.use(router);
 app.mount('#app');
