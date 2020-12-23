@@ -31,7 +31,7 @@
           v-for="(item, index) in history"
           :key="index"
           size="small"
-          style="margin-left:10px"
+          style="margin-left:10px; padding: 0 10px"
           >{{ item }}</van-button>
         </div>
       </div>
@@ -45,7 +45,7 @@
           v-for="(item, index) in his"
           :key="index"
           size="small"
-          style="margin-left:10px; margin-bottom:5px"
+          style="margin-left:10px; margin-bottom:5px; padding: 0 10px"
           >{{ item }}</van-button>
         </div>
       </div>
@@ -120,11 +120,12 @@ export default {
       }
     },
     onClear(val) {
-      this.show = false
-      Toast('取消');
+      this.show = false;
+      Toast('×');
     },
     onCancel() {
-      this.show = false
+      this.show = false;
+      this.$router.go(-1);
       Toast('取消');
     },
   }

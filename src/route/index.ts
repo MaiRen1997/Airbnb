@@ -44,15 +44,15 @@ const routes = [
   },
   { 
     path: '/resetAccount',
-    component: () => import('../views/login/resetAccount.vue')
+    component: () => import('../components/login/resetAccount.vue')
   },
   { 
     path: '/resign',
-    component: () => import('../views/login/resign.vue'),
-    children:[{
-      path:'input',
-      component: ()=> import('../views/input/input.vue'),
-    }]
+    component: () => import('../components/login/resign.vue'),
+    // children:[{
+    //   path:'input',
+    //   component: ()=> import('../views/input/input.vue'),
+    // }]
   }
 ] 
 export const router = createRouter({

@@ -26,7 +26,5 @@ export default defineComponent ({
 })
 </script>
 <style lang="less" scope>
-.app {
-  padding-bottom:50px;
-}
+
 </style>
