@@ -48,11 +48,11 @@ const routes = [
   },
   { 
     path: '/resign',
-    component: () => import('../views/login/resign.vue'),
-    children:[{
-      path:'input',
-      component: ()=> import('../views/input/input.vue'),
-    }]
+    component: () => import('../views/login/resign.vue')
+    // component: () => import('../views/404.vue')
+  },{
+    path:"/:catchAll(.*)",
+    component:()=>import("../views/404.vue")
   }
 ] 
 export const router = createRouter({
