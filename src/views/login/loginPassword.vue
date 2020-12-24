@@ -92,16 +92,19 @@ export default defineComponent({
     //     })
     // }
     //get请求数据
-    let getData = login("product/searchProduct",{a:1});
-    const submit = function () { 
-      console.log(getData);
-     }
+    // let getData = login("product/searchProduct");
+    // const submit = function () { 
+    //   console.log(getData);
+    //   // getData();
+    //  }
     //提交请求
-    // const submit =function(){
+    // let getData = function () { login("product/searchProduct");}
+    const submit = async function(){
     //   /* console.log(password.value); */
-    //   console.log(1);
-    //   getData();
-    // }
+    //   // console.log(1);
+      const res = await login("product/searchProduct")
+      console.log(res)
+    }
     //去注册页面
   const go_resign =function(){
     router.push("/resign");

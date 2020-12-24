@@ -33,9 +33,13 @@ const http:httpType = {
     // return body;
     // 拼接需要请求的路径
     let path = baseUrl+url +body;
-    fetch(path)
-        .then(res=>res.json())
-        .then(res=> {res});
+    let answer = [];
+    return fetch(path)
+        .then(response=>response.json())
+        .then(res=>{
+          // console.log(res);
+            return  res.result;
+          });
   },
   post(url:string,params:object):any{
     //处理对象的数据
