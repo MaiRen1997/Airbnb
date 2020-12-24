@@ -24,7 +24,7 @@
 
         <!-- 轮播图 -->
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="black">
-          <van-swipe-item class="my-swipe-item" v-for="(item,index) in lunbo" :key="index">
+          <van-swipe-item class="my-swipe-item" v-for="item in lunbo" :key="item.title">
              <img :src="item.imgurl" />
           </van-swipe-item>
         </van-swipe>
@@ -32,19 +32,27 @@
         <!-- 导航栏 -->
         <!-- :gutter设置格子间距 -->
         <van-grid class="nav" :border="false">
-          <van-grid-item icon="photo-o" text="文字" v-for="(item, index) in 8" :key="index" :gutter="10"  />
+          <van-grid-item icon="photo-o" :text="item.title" v-for="item in logoList" :key="item.logoid" :gutter="10">
+            <template #icon>
+              <img
+                class="grid-img"
+                :src="item.logoimg"
+                alt=""
+              />
+            </template>
+          </van-grid-item>
         </van-grid>
 
         <!-- 产品 -->
         <div class="shoes">
-          <div class="pic" v-for="(item, index) in pic" :key="index">
+          <div class="pic" v-for="item in productList" :key="item.productid">
             <figure>
               <img :src="item.imgurl" alt="">
             </figure>
-            <p>{{ item.name }}</p>
+            <p>{{ item.title }}</p>
             <div class="buyitem">
               <span>￥{{ item.price }}</span>
-              <span class="sell">{{ item.sell }}人付款</span>
+              <span class="sell">{{ item.people }}人付款</span>
             </div>
           </div>
         </div>
@@ -57,11 +65,14 @@
 <script>
 import textImg from '../assets/logo.png';
 import BScroll from 'better-scroll';
+import { getSwipePicApi, getProductPicApi, getLogoApi } from '../utils/api.ts'
 
 export default {
   data() {
     return {
       lunbo: [],
+      logoList:[],
+      productList:[],
       pic: [
         {
         img: textImg,
@@ -91,14 +102,10 @@ export default {
       imgurl:[]
     };
   },
-
-  components: {},
-
-  computed: {},
-
   mounted() {
-    
     this.getdata();
+    this.getProduct();
+    this.getlogo();
 
         // 请求数据结束
     this.$nextTick(() => {
@@ -116,23 +123,26 @@ export default {
   },
 
   methods: {
-    getdata(){
-      fetch("http://10.31.162.36:8088/api/product/searchSwipe")
-      .then(res=>res.json())
-      .then(res=>{
-        console.log(res.result);
-        this.lunbo = res.result;
-        console.log(this.lunbo)
-        })
+    //请求数据
+    async getdata() {
+      const res = await getSwipePicApi();
+        this.lunbo = res;
+        console.log(res);
     },
-      onClickRight() {
+    async getProduct() {
+      const res = await getProductPicApi();
+      this.productList = res;
+      console.log(res);
+    },async getlogo() {
+      const res = await getLogoApi();
+      this.logoList = res;
+      console.log(res);
+    },
+    onClickRight() {
       Toast('按钮');
     }
-  },
-  // unmounted() {
-  //   //离开这个界面之后，删除，不然会有问题
-  //   window.removeEventListener("scroll", this.handleSroll);
-  // },
+    
+  }
 };
 </script>
 <style lang="less" scope>
@@ -170,6 +180,10 @@ export default {
 
 .nav {
   padding: 10px 0;
+
+  .grid-img {
+    width: 100%;
+  }
 };
 
 .shoes {

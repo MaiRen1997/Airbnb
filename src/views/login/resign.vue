@@ -8,7 +8,7 @@
   <van-nav-bar safe-area-inset-top />
   <!-- 顶部标题 -->
   <van-nav-bar
-    title="忘记密码"
+    title="注册"
     left-text="返回"
     left-arrow
     @click-left="onClickLeft"
@@ -44,41 +44,42 @@
     <div class = "other_page">
       <span 
         @click="go_login"
-      >登录</span>
-      <span 
-        class="resign"
-        @click="go_resign"
-      >注册</span>
+      >已有密码</span>
     </div>
   </div>
   <!-- 开启底部安全区 -->
   <van-number-keyboard safe-area-inset-bottom />
 </template>
-
 <script>
+import { ref } from "vue";
+import { reactive } from "vue";
+import loginPhoneVue from './loginPhone.vue';
 import { defineComponent } from 'vue';
-//引入路由
-import { useRouter } from "vue-router"
-export default defineComponent ({
+import { useRouter, useRoute } from 'vue-router'
+// import axios from "axios";
+export default defineComponent({
   setup(){
-    //引用路由
+     const value = ref('');
+    //获取用户名
+    const username = ref('');
+    const imgurl =reactive([]);
+    //获取密码
+    const password = ref('');
+    const sms = ref('');
+
+    //左上角点击回退方法
     const router = useRouter();
-    //返回上一页
-    const onClickLeft = function (){
+    const onClickLeft = function(){
       router.go(-1);
     }
-    //去登录页
-    const go_login = function () { 
-      router.push("/loginPassword");
-      // console.log(1);
-     }
-     //去注册页
-     const go_resign= function () { 
-      router.push("/resign");
-      // console.log(1);
-     }
-  return { onClickLeft, go_login, go_resign }
+    //去注册页面
+  const go_login =function(){
+    router.push("/loginPassword");
+  }
+    return { value, username, sms, password, go_login, onClickLeft };
   }
 });
 </script>
-<style lang='less' scoped></style>
+<style lang="ts" scoped>
+
+</style>

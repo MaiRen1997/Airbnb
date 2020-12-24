@@ -1,53 +1,70 @@
 <template>
-  <div>这是密码登录页面</div>
+  <!-- 顶部 底部安全区 添加 meta 标签，并设置 viewport-fit=cover 值 -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover"
+  />
+  <!-- 开启顶部安全区适配 -->
+  <van-nav-bar safe-area-inset-top />
+  <!-- 顶部标题 -->
   <van-nav-bar
-    title="登录"
+    title="手机登录"
     left-text="返回"
     left-arrow
     @click-left="onClickLeft"
   />
-  <van-search 
-    v-model="value" 
-    placeholder="请输入手机号" 
-    input-align="center"
-    shape="round"
-    left-icon=""
-  />
-  <!--短信验证码 -->
-  <van-field
-    v-model="sms"
-    center
-    clearable
-    placeholder="请输入短信验证码"
-  >
-    <template #button>
-      <van-button size="small" type="primary">发送验证码</van-button>
-    </template>
-  </van-field>
-  <!-- 按钮 -->
-  <van-button type="primary" size="large" round = true>大号按钮</van-button>
-  <div>
-    <span>密码登录</span>
-    <span>注册</span>
+  <div class="input_contain">
+    <!-- 手机输入框 -->
+    <div class="phone">
+      <input type="text" placeholder="请输入手机号"/>
+    </div>
+    <!-- 手机验证码 -->
+    <div class="phone">
+      <input type="text" placeholder="请输入验证码"/>
+      <!-- 发送验证码 -->
+      <div id="send_msg">
+      发送验证码
+      </div>
+    </div>
+    <!-- 按钮 -->
+    <van-button
+      type="primary"
+      size="large"
+      :round="true"
+      @click="submit"
+    >
+      下一步
+    </van-button>
+    <div class = "other_page">
+      <span 
+        @click="go_resetAccount"
+      >忘记密码</span>
+      <span 
+        class="resign"
+        @click="go_resign"
+      >注册</span>
+    </div>
   </div>
+  <!-- 开启底部安全区 -->
+  <van-number-keyboard safe-area-inset-bottom />
 </template>
 <script>
+import { useRouter } from "vue-router";
+
 export default {
-  data() {
-    return {};
-  },
-
-  components: {},
-
-  computed: {},
-
-  mounted() {},
-
-  methods: {}
+  setup(){
+    const router = useRouter();
+    const onClickLeft = function(){
+      router.go(-1);
+    };
+    const go_resetAccount = function(){
+      router.push("/resetAccount")
+    }
+    const go_resign =function(){
+      router.push("/resign");
+    }
+    return {onClickLeft, go_resetAccount, go_resign};
+  }
 };
 </script>
-<style lang='less' scoped>
-.search-input-height{
-  height: 500px;
-}
-</style>
+<style lang='less' scoped></style>

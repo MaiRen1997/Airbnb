@@ -7,8 +7,9 @@
       placeholder="请输入搜索关键词"
       @search="onSearch(value)"
       @input="onInput(value)"
-      @clear="onClear(value)"
+      @clear="onClear()"
       @cancel="onCancel(value)"
+      clearable="true"
       autofocus="true"
       style="margin-top:20px"
     />
@@ -119,9 +120,10 @@ export default {
         this.show = false;
       }
     },
-    onClear(val) {
-      this.show = false;
-      Toast('×');
+    onClear() {
+      console.log(123);
+      // this.show = false;
+      // Toast('×');
     },
     onCancel() {
       this.show = false;
