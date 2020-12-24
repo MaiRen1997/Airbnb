@@ -56,7 +56,7 @@
         <p>热门搜索</p>
         <div class="hotpic">
           <figure v-for="(item, index) in hotpic" :key="index">
-            <div>
+            <div :class="{ colorred: index === 0,colororange : index === 1,coloryellow : index === 2 }">
               {{ index }}
             </div>
             <img :src="item" alt="">
@@ -199,23 +199,36 @@ export default {
     figure {
       width: 100px;
       height: 100px;
-      border: 1px solid black;
+      border: 1px solid rgb(26, 26, 26);
       overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
 
+      .colorred {
+        background: #FF0000;
+      };
+
+      .colororange {
+        background: #FFA800;
+      };
+
+      .coloryellow {
+        background: #FFF000;
+      };
+
       div {
         position: absolute;
         background: @theme-color;
-        left: 10px;
+        font-weight: bold;
+        left: 6px;
         top: -1px;
         width: 15px;
         height: 20px;
-        color: white;
+        color: black;
         font-size: 13px;
-        border: 1px solid black;
+        border: 1px solid rgb(26, 26, 26);
       }
     }
   }

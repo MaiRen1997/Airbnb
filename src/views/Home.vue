@@ -150,11 +150,11 @@ export default {
 };
 </script>
 <style lang="less" scope>
-// @import 
+@import "../assets/css/style.less";
 
 .home {
   overflow: hidden;
-  background: #efefef;
+  background: #efefef!important;
 }
 .header {
   height: 46px;
@@ -168,6 +168,7 @@ export default {
   right: 0;
   bottom: 50px;
   overflow: hidden;
+  background: @background-color;
 };
 
 .my-swipe{
@@ -190,8 +191,7 @@ export default {
 };
 
 .nav {
-  padding: 10px 0;
-
+  padding-top: 5px;
   figure {
     display: flex;
     justify-content: center;
@@ -210,14 +210,15 @@ export default {
   justify-content: space-around;
   align-content: flex-start;
   flex-wrap: wrap;
+ 
   .pic {
     margin-top: 5px;
     box-sizing: border-box;
     width: 180px;
     height: 160px;
     overflow: hidden;
-    float: left;
-    border: 1px solid rgba(128, 128, 128, 0.1);
+    float: left; 
+    background: white;
 
     figure {
       width: 100%;
@@ -233,7 +234,7 @@ export default {
       font-size: 11px;
       color: grey;
       font-weight: lighter;
-      padding: 5px
+      padding: 13px 0;
     };
 
     .buyitem {

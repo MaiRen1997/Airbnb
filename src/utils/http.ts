@@ -38,7 +38,7 @@ const http:httpType = {
         .then(response=>response.json())
         .then(res=>{
           // console.log(res);
-            return  res.result;
+            return res.result;
           });
   },
   post(url:string,params:object):any{
@@ -54,7 +54,7 @@ const http:httpType = {
     //拼接需要请求的路径
     let path = baseUrl+url +body;
     const data= format(params);
-    return fetch(baseUrl+url, {
+    fetch(baseUrl+url, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -62,7 +62,7 @@ const http:httpType = {
             body:data
         }).then(res=>res.json())
         .then(res=>{
-          return res.result;
+          return res;
         })
   }
 }
