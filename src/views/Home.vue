@@ -32,13 +32,15 @@
         <!-- 导航栏 -->
         <!-- :gutter设置格子间距 -->
         <van-grid class="nav" :border="false">
-          <van-grid-item icon="photo-o" :text="item.title" v-for="item in logoList" :key="item.logoid" :gutter="10">
+          <van-grid-item :text="item.title" v-for="item in logoList" :key="item.logoid" :gutter="6">
             <template #icon>
-              <img
+              <figure>
+                <img
                 class="grid-img"
                 :src="item.logoimg"
                 alt=""
               />
+              </figure>
             </template>
           </van-grid-item>
         </van-grid>
@@ -56,9 +58,8 @@
             </div>
           </div>
         </div>
-
       </div>
-  </div>
+    </div>
   </div>
 </template>
 
@@ -104,21 +105,15 @@ export default {
   },
   mounted() {
     this.getdata();
-    this.getProduct();
     this.getlogo();
+    this.getProduct();
 
         // 请求数据结束
-    this.$nextTick(() => {
-      const bs = new BScroll(".wrapper", {
-        scrollX: false,
-        scrollY: true,
-        click:true,
-        // probeType: 3
-      });
+
       // bs.on('scroll', (position) => {
       //   console.log(position.x, position.y)
       // });
-    });
+
       
   },
 
@@ -132,7 +127,16 @@ export default {
     async getProduct() {
       const res = await getProductPicApi();
       this.productList = res;
-      console.log(res);
+
+      //better-scroll车轮滚滚启动
+      this.$nextTick(() => {
+      new BScroll(".wrapper", {
+        scrollX: false,
+        scrollY: true,
+        click:true,
+        // probeType: 3
+      });
+      });
     },async getlogo() {
       const res = await getLogoApi();
       this.logoList = res;
@@ -146,10 +150,17 @@ export default {
 };
 </script>
 <style lang="less" scope>
+// @import 
+
+.home {
+  overflow: hidden;
+  background: #efefef;
+}
 .header {
   height: 46px;
   position: relative;
 };
+
 .wrapper {
   position: absolute;
   top: 46px;
@@ -158,13 +169,13 @@ export default {
   bottom: 50px;
   overflow: hidden;
 };
+
 .my-swipe{
   color: #fff;
   font-size: 20px;
   line-height: 150px;
   text-align: center;
   height: 190px;
-  background-color: #39a9ed;
 
   .my-swipe-item {
     display: flex;
@@ -181,49 +192,60 @@ export default {
 .nav {
   padding: 10px 0;
 
+  figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+  }
   .grid-img {
-    width: 100%;
+    max-width: 60px;
+    max-height: 100%;
   }
 };
 
 .shoes {
   overflow: hidden;
-}
+  display: flex;
+  justify-content: space-around;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  .pic {
+    margin-top: 5px;
+    box-sizing: border-box;
+    width: 180px;
+    height: 160px;
+    overflow: hidden;
+    float: left;
+    border: 1px solid rgba(128, 128, 128, 0.1);
 
-.pic {
-  box-sizing: border-box;
-  width: 50%;
-  height: 160px;
-  overflow: hidden;
-  float: left;
-  border: 1px solid rgba(128, 128, 128, 0.1);
-
-  figure {
-     height: 100px;
-     overflow: hidden;
-  }
-  img {
-    width: 100%;
-    margin-bottom: 10px;
-   
-  };
-  
-  p {
-    font-size: 11px;
-    color: grey;
-    font-weight: lighter;
-    padding: 5px
-  };
-
-  .buyitem {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 5px 5px;
-    font-size: 11px;
-    font-weight: lighter;
-
-    .sell {
+    figure {
+      width: 100%;
+      height: 100px;
+      overflow: hidden;
+    }
+    img {
+      width: 100%;
+      margin-bottom: 10px;
+    };
+    
+    p {
+      font-size: 11px;
       color: grey;
+      font-weight: lighter;
+      padding: 5px
+    };
+
+    .buyitem {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 5px 5px;
+      font-size: 11px;
+      font-weight: lighter;
+
+      .sell {
+        color: grey;
+      }
     }
   }
 }

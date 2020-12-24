@@ -121,9 +121,8 @@ export default {
       }
     },
     onClear() {
-      console.log(123);
-      // this.show = false;
-      // Toast('×');
+      this.show = false;
+      Toast('×');
     },
     onCancel() {
       this.show = false;
