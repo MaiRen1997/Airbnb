@@ -14,13 +14,16 @@ a {
 };
 
 .home {
+  // 宫格
   .van-grid nav {
     padding-bottom: 20px;
   }
+
   .van-nav-bar__content {
     position: relative;
 
   }
+  // 搜索图标外的按钮
   .van-button--default {
     position: absolute;
     top : 5px;
@@ -31,9 +34,18 @@ a {
     background:transparent;
     height: 40px;
 
+    // 搜索图标
     .van-icon-search {
       color: @theme-color;
     }
+  }
+
+  // 轮播图小点
+  .van-swipe__indicator {
+    width: 10px;
+    height: 10px;
+    border: 1px solid grey;
+    background: transparent;
   }
 }
 .search {

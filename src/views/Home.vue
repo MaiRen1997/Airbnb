@@ -23,8 +23,10 @@
       <div class="content">
 
         <!-- 轮播图 -->
-        <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-          <van-swipe-item v-for="(item,index) in 4" :key="index">1</van-swipe-item>
+        <van-swipe class="my-swipe" :autoplay="3000" indicator-color="black">
+          <van-swipe-item class="my-swipe-item" v-for="(item,index) in lunbo" :key="index">
+             <img :src="item.imgurl" />
+          </van-swipe-item>
         </van-swipe>
 
         <!-- 导航栏 -->
@@ -37,7 +39,7 @@
         <div class="shoes">
           <div class="pic" v-for="(item, index) in pic" :key="index">
             <figure>
-              <img :src="item.img" alt="">
+              <img :src="item.imgurl" alt="">
             </figure>
             <p>{{ item.name }}</p>
             <div class="buyitem">
@@ -59,6 +61,7 @@ import BScroll from 'better-scroll';
 export default {
   data() {
     return {
+      lunbo: [],
       pic: [
         {
         img: textImg,
@@ -84,7 +87,8 @@ export default {
         price: 539,
         sell: 7888
       }
-      ]
+      ],
+      imgurl:[]
     };
   },
 
@@ -93,39 +97,42 @@ export default {
   computed: {},
 
   mounted() {
-    console.log(1);
+    
     this.getdata();
+
         // 请求数据结束
     this.$nextTick(() => {
       const bs = new BScroll(".wrapper", {
         scrollX: false,
         scrollY: true,
         click:true,
-        probeType: 3
+        // probeType: 3
       });
-      bs.on('scroll', (position) => {
-        console.log(position.x, position.y)
-      });
+      // bs.on('scroll', (position) => {
+      //   console.log(position.x, position.y)
+      // });
     });
       
   },
 
   methods: {
     getdata(){
-      fetch("http://10.31.162.36:8088/api/user//searchUser")
+      fetch("http://10.31.162.36:8088/api/product/searchSwipe")
       .then(res=>res.json())
       .then(res=>{
-        console.log(res)
+        console.log(res.result);
+        this.lunbo = res.result;
+        console.log(this.lunbo)
         })
     },
       onClickRight() {
       Toast('按钮');
     }
   },
-  unmounted() {
-    //离开这个界面之后，删除，不然会有问题
-    window.removeEventListener("scroll", this.handleSroll);
-  },
+  // unmounted() {
+  //   //离开这个界面之后，删除，不然会有问题
+  //   window.removeEventListener("scroll", this.handleSroll);
+  // },
 };
 </script>
 <style lang="less" scope>
@@ -141,12 +148,24 @@ export default {
   bottom: 50px;
   overflow: hidden;
 };
-.my-swipe .van-swipe-item {
+.my-swipe{
   color: #fff;
   font-size: 20px;
   line-height: 150px;
   text-align: center;
+  height: 190px;
   background-color: #39a9ed;
+
+  .my-swipe-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  img {
+    height: 100%
+  }
 };
 
 .nav {
