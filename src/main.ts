@@ -26,7 +26,8 @@ import {
   Button,
   Search,
   Toast,
-  Field
+  Field,
+  // NumberKeyboard,
 } from 'vant';
 
 
@@ -59,8 +60,9 @@ app.use(Toast);
 //引入搜索框
 app.use(Search);
 //自定义图片
-app.use(Grid)
-app.use(GridItem)
-
+app.use(Grid);
+app.use(GridItem);
+//使用数字键盘
+// app.use(NumberKeyboard)
 app.use(router);
 app.mount('#app');

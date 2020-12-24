@@ -50,7 +50,13 @@ const routes = [
     path: '/resign',
     component: () => import('../views/login/resign.vue')
     // component: () => import('../views/404.vue')
-  },{
+  },
+  { 
+    path: '/list_item',
+    component: () => import('../views/list_item/list_item.vue')
+    // component: () => import('../views/404.vue')
+  },
+  {
     path:"/:catchAll(.*)",
     component:()=>import("../views/404.vue")
   }
