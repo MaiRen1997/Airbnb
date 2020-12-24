@@ -52,10 +52,20 @@ const routes = [
   },
   { 
     path: '/resign',
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    component: () => import('../components/login/resign.vue'),
+=======
+>>>>>>> bc7f3fb1686de7bbe3e996db0359153de854a3b6
     component: () => import('../views/login/resign.vue')
   },{
     path:"/:catchAll(.*)",
     component:()=>import("../views/404.vue")
+<<<<<<< HEAD
+=======
+>>>>>>> master-dev
+>>>>>>> bc7f3fb1686de7bbe3e996db0359153de854a3b6
   }
 ] 
 export const router = createRouter({
