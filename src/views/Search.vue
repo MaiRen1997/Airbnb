@@ -33,7 +33,8 @@
           :key="index"
           size="small"
           style="margin-left:10px; padding: 0 10px"
-          >{{ item }}</van-button>
+          >{{ item }}
+          </van-button>
         </div>
       </div>
 
@@ -63,7 +64,6 @@
           </figure>
         </div>
       </div>
-
     </div>
 
   </div>
@@ -111,7 +111,7 @@ export default {
   },
   methods: {
     onSearch(val) {
-      this.$router.push(`/url/${id}`);
+      this.$router.push(`/store/${this.value}`);
     },
     onInput(val) {
       if (val != "") {
@@ -122,12 +122,10 @@ export default {
     },
     onClear() {
       this.show = false;
-      Toast('×');
     },
     onCancel() {
       this.show = false;
       this.$router.go(-1);
-      Toast('取消');
     },
   }
 };

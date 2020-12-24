@@ -30,7 +30,11 @@ const routes = [
     path:'/search',
     component: () => import('../views/Search.vue')
   },
-  { 
+  {
+    path:'/store/:value',
+    component: () => import('../views/Store.vue')
+  }
+  ,{ 
     path: '/test',
     component: () => import('../views/test.vue')
   },
@@ -49,7 +53,6 @@ const routes = [
   { 
     path: '/resign',
     component: () => import('../views/login/resign.vue')
-    // component: () => import('../views/404.vue')
   },{
     path:"/:catchAll(.*)",
     component:()=>import("../views/404.vue")
