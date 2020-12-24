@@ -49,10 +49,6 @@ const routes = [
   { 
     path: '/resign',
     component: () => import('../components/login/resign.vue'),
-    // children:[{
-    //   path:'input',
-    //   component: ()=> import('../views/input/input.vue'),
-    // }]
   }
 ] 
 export const router = createRouter({

@@ -97,17 +97,21 @@ export default {
     this.getdata();
         // 请求数据结束
     this.$nextTick(() => {
-      new BScroll(".wrapper", {
+      const bs = new BScroll(".wrapper", {
         scrollX: false,
         scrollY: true,
-        click:true
-      })
+        click:true,
+        probeType: 3
+      });
+      bs.on('scroll', (position) => {
+        console.log(position.x, position.y)
+      });
     });
+      
   },
 
   methods: {
     getdata(){
-      console.log(1);
       fetch("http://10.31.162.36:8088/api/user//searchUser")
       .then(res=>res.json())
       .then(res=>{
@@ -116,8 +120,12 @@ export default {
     },
       onClickRight() {
       Toast('按钮');
-    },
-  }
+    }
+  },
+  unmounted() {
+    //离开这个界面之后，删除，不然会有问题
+    window.removeEventListener("scroll", this.handleSroll);
+  },
 };
 </script>
 <style lang="less" scope>
