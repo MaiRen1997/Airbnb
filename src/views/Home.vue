@@ -58,7 +58,7 @@
             </div>
           </div>
         </div> -->
-        <product :productList="productList"></product>
+        <product :productList="productList" @imageLoad="imageLoad"></product>
       </div>
     </div>
   </div>
@@ -117,6 +117,9 @@ export default {
   },
 
   methods: {
+    imagelode() {
+      this.$refs.scroll.refresh()
+    },
     //请求数据
     async getdata() {
       const res = await getSwipePicApi();

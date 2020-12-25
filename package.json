@@ -7,12 +7,8 @@
   },
   "dependencies": {
     "amfe-flexible": "^2.2.1",
-<<<<<<< HEAD
-    "vant": "^3.0.0",
-=======
     "better-scroll": "^2.0.6",
     "vant": "^3.0.0-rc.4",
->>>>>>> a7caff080eebe9456889a4e45f7bfe80a5b24bc5
     "vue": "^3.0.4",
     "vue-router": "^4.0.1",
     "vuex": "^4.0.0-rc.2"

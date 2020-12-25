@@ -229,7 +229,7 @@
 <div class="recommend">
   <p>相关推荐</p>
 </div>
-
+<product :productList="productList"></product>
 
 <!-- 商品导航 -->
 <van-action-bar>
@@ -241,7 +241,33 @@
 </template>
 
 <script>
+import product from '../../components/Home/ProductCom.vue';
+
+// import BScroll from '../better-scroll';
+import { getSwipePicApi, getProductPicApi, getLogoApi } from '../../utils/api.ts';
+
 export default {
+  data() {
+    return {
+      count:4,
+      start:0,
+      productList:[]
+    }
+  },
+  components: {
+    product
+  },
+  mounted() {
+    this.getProduct();
+  },
+  methods:{
+     async getProduct() {
+      const res = await getProductPicApi({count: this.count, start: this.start});
+      this.productList = res.result;
+      console.log(res)
+     }
+  }
+
 }
 </script>
 
