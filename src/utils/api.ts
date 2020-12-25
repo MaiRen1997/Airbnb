@@ -11,7 +11,7 @@ const login = function(url:string,params:object):string{
 const getSwipePicApi = () => http.get("product/searchSwipe");
 
 //首页产品
-const getProductPicApi = () => http.get("product/searchProduct");
+const getProductPicApi = (params:object) => http.post("product/searchProduct",params);
 
 //logo图标
 const getLogoApi = () => http.get("product/searchLogo");

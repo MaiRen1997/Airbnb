@@ -54,7 +54,7 @@ const http:httpType = {
     //拼接需要请求的路径
     let path = baseUrl+url +body;
     const data= format(params);
-    fetch(baseUrl+url, {
+    return fetch(baseUrl+url, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

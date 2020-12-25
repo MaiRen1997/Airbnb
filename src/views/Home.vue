@@ -46,7 +46,7 @@
         </van-grid>
 
         <!-- 产品 -->
-        <div class="shoes">
+        <!-- <div class="shoes">
           <div class="pic" v-for="item in productList" :key="item.productid">
             <figure>
               <img :src="item.imgurl" alt="">
@@ -57,7 +57,8 @@
               <span class="sell">{{ item.people }}人付款</span>
             </div>
           </div>
-        </div>
+        </div> -->
+        <product :productList="productList"></product>
       </div>
     </div>
   </div>
@@ -66,11 +67,14 @@
 <script>
 import textImg from '../assets/logo.png';
 import BScroll from 'better-scroll';
-import { getSwipePicApi, getProductPicApi, getLogoApi } from '../utils/api.ts'
+import { getSwipePicApi, getProductPicApi, getLogoApi } from '../utils/api.ts';
+import product from '../components/Home/ProductCom.vue';
 
 export default {
   data() {
     return {
+      count:4,
+      start:0,
       lunbo: [],
       logoList:[],
       productList:[],
@@ -103,18 +107,13 @@ export default {
       imgurl:[]
     };
   },
+  components: {
+    product
+  },
   mounted() {
     this.getdata();
     this.getlogo();
     this.getProduct();
-
-        // 请求数据结束
-
-      // bs.on('scroll', (position) => {
-      //   console.log(position.x, position.y)
-      // });
-
-      
   },
 
   methods: {
@@ -125,18 +124,39 @@ export default {
         console.log(res);
     },
     async getProduct() {
-      const res = await getProductPicApi();
-      this.productList = res;
+      const res = await getProductPicApi({count: this.count, start: this.start});
+      this.productList = res.result;
+      console.log(res)
 
       //better-scroll车轮滚滚启动
-      this.$nextTick(() => {
-      new BScroll(".wrapper", {
+      await this.$nextTick()
+      const bs = new BScroll(".wrapper", {
         scrollX: false,
         scrollY: true,
         click:true,
-        // probeType: 3
+        pullUpLoad: true
       });
-      });
+      //监听滚动到底的时间
+      // bs.on("pullingUp", async() => {
+      //   //整理字符串
+      //   console.log(123)
+      //   const arr = this.ids.slice(this.start, this.start + this.count);
+      //   const str = arr.join();
+      //   //请求数据
+      //   const res = await this.getProduct({
+      //     ids: str
+      //   });
+      //   // 将请求到的数据和之前的数据做合并
+      //   this.productList = this.productList.concat(res.result);
+      //   this.start += this,count;
+      //   //需要重新计算better-scroll的高度
+      //   await this.$nextTick(() => {
+      //     bs.refresh()
+      //   });
+      //   if ( this.start <= this.num) {
+      //     bs.finishPullUp();
+      //   };
+      // })
     },async getlogo() {
       const res = await getLogoApi();
       this.logoList = res;
@@ -145,7 +165,6 @@ export default {
     onClickRight() {
       Toast('按钮');
     }
-    
   }
 };
 </script>
@@ -203,51 +222,4 @@ export default {
     max-height: 100%;
   }
 };
-
-.shoes {
-  overflow: hidden;
-  display: flex;
-  justify-content: space-around;
-  align-content: flex-start;
-  flex-wrap: wrap;
- 
-  .pic {
-    margin-top: 5px;
-    box-sizing: border-box;
-    width: 180px;
-    height: 160px;
-    overflow: hidden;
-    float: left; 
-    background: white;
-
-    figure {
-      width: 100%;
-      height: 100px;
-      overflow: hidden;
-    }
-    img {
-      width: 100%;
-      margin-bottom: 10px;
-    };
-    
-    p {
-      font-size: 11px;
-      color: grey;
-      font-weight: lighter;
-      padding: 13px 0;
-    };
-
-    .buyitem {
-      display: flex;
-      justify-content: space-between;
-      padding: 0 5px 5px;
-      font-size: 11px;
-      font-weight: lighter;
-
-      .sell {
-        color: grey;
-      }
-    }
-  }
-}
 </style>
