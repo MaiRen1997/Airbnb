@@ -4,45 +4,57 @@
     <van-nav-bar
       @click-left="onClickLeft"
       @click-right="onClickRight"
+      class="header"
     >
       <template #left>
         <van-icon name="coupon-o" size="20" />
       </template>
       <template #right>
-        <van-icon name="search" size="22" />
-        <van-icon name="video-o" size="22" style="margin-left:20px" />
+        <van-icon name="video-o" size="22" />
       </template>
     </van-nav-bar>
+    <!-- 搜索按钮 -->
+    <van-button type="default" to="/search">
+      <van-icon name="search" />
+    </van-button>
 
-    <!-- 轮播图 -->
-    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item v-for="(item,index) in 4" :key="index">1</van-swipe-item>
-    </van-swipe>
+    <!-- better-scroll盒子嵌套 -->
+    <div class="wrapper">
+      <div class="content">
 
-    <!-- 导航栏 -->
-    <!-- :gutter设置格子间距 -->
-    <van-grid class="nav" :border="false">
-      <van-grid-item icon="photo-o" text="文字" v-for="(item, index) in 8" :key="index" :gutter="10"  />
-    </van-grid>
+        <!-- 轮播图 -->
+        <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+          <van-swipe-item v-for="(item,index) in 4" :key="index">1</van-swipe-item>
+        </van-swipe>
 
-    <!-- 产品 -->
-    <div class="shoes">
-      <div class="pic" v-for="(item, index) in pic" :key="index">
-        <figure>
-          <img :src="item.img" alt="">
-        </figure>
-        <p>{{ item.name }}</p>
-        <div class="buyitem">
-          <span>￥{{ item.price }}</span>
-          <span class="sell">{{ item.sell }}人付款</span>
+        <!-- 导航栏 -->
+        <!-- :gutter设置格子间距 -->
+        <van-grid class="nav" :border="false">
+          <van-grid-item icon="photo-o" text="文字" v-for="(item, index) in 8" :key="index" :gutter="10"  />
+        </van-grid>
+
+        <!-- 产品 -->
+        <div class="shoes">
+          <div class="pic" v-for="(item, index) in pic" :key="index">
+            <figure>
+              <img :src="item.img" alt="">
+            </figure>
+            <p>{{ item.name }}</p>
+            <div class="buyitem">
+              <span>￥{{ item.price }}</span>
+              <span class="sell">{{ item.sell }}人付款</span>
+            </div>
+          </div>
         </div>
+
       </div>
-    </div>
+  </div>
   </div>
 </template>
 
 <script>
-import textImg from '../assets/logo.png'
+import textImg from '../assets/logo.png';
+import BScroll from 'better-scroll';
 
 export default {
   data() {
@@ -83,22 +95,52 @@ export default {
   mounted() {
     console.log(1);
     this.getdata();
+        // 请求数据结束
+    this.$nextTick(() => {
+      const bs = new BScroll(".wrapper", {
+        scrollX: false,
+        scrollY: true,
+        click:true,
+        probeType: 3
+      });
+      bs.on('scroll', (position) => {
+        console.log(position.x, position.y)
+      });
+    });
+      
   },
 
   methods: {
     getdata(){
-      console.log(1);
       fetch("http://10.31.162.36:8088/api/user//searchUser")
       .then(res=>res.json())
       .then(res=>{
         console.log(res)
         })
+    },
+      onClickRight() {
+      Toast('按钮');
     }
-  }
+  },
+  unmounted() {
+    //离开这个界面之后，删除，不然会有问题
+    window.removeEventListener("scroll", this.handleSroll);
+  },
 };
 </script>
 <style lang="less" scope>
-
+.header {
+  height: 46px;
+  position: relative;
+};
+.wrapper {
+  position: absolute;
+  top: 46px;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  overflow: hidden;
+};
 .my-swipe .van-swipe-item {
   color: #fff;
   font-size: 20px;
@@ -118,6 +160,7 @@ export default {
 .pic {
   box-sizing: border-box;
   width: 50%;
+  height: 160px;
   overflow: hidden;
   float: left;
   border: 1px solid rgba(128, 128, 128, 0.1);
