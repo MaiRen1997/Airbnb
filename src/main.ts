@@ -59,8 +59,8 @@ app.use(Toast);
 //引入搜索框
 app.use(Search);
 //自定义图片
-app.use(Grid)
-app.use(GridItem)
+app.use(Grid);
+app.use(GridItem);
 
 app.use(router);
 app.mount('#app');

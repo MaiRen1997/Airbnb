@@ -73,6 +73,7 @@ import product from '../components/Home/ProductCom.vue';
 export default {
   data() {
     return {
+      num:0,
       count:4,
       start:0,
       lunbo: [],
@@ -121,12 +122,10 @@ export default {
     async getdata() {
       const res = await getSwipePicApi();
         this.lunbo = res;
-        console.log(res);
     },
     async getProduct() {
       const res = await getProductPicApi({count: this.count, start: this.start});
       this.productList = res.result;
-      console.log(res)
 
       //better-scroll车轮滚滚启动
       await this.$nextTick()
@@ -137,26 +136,20 @@ export default {
         pullUpLoad: true
       });
       //监听滚动到底的时间
-      // bs.on("pullingUp", async() => {
-      //   //整理字符串
-      //   console.log(123)
-      //   const arr = this.ids.slice(this.start, this.start + this.count);
-      //   const str = arr.join();
-      //   //请求数据
-      //   const res = await this.getProduct({
-      //     ids: str
-      //   });
-      //   // 将请求到的数据和之前的数据做合并
-      //   this.productList = this.productList.concat(res.result);
-      //   this.start += this,count;
-      //   //需要重新计算better-scroll的高度
-      //   await this.$nextTick(() => {
-      //     bs.refresh()
-      //   });
-      //   if ( this.start <= this.num) {
-      //     bs.finishPullUp();
-      //   };
-      // })
+      bs.on("pullingUp", async() => {
+        //整理字符串
+        this.start += this.count
+        //请求数据
+        const res = await getProductPicApi({count: this.count, start: this.start});
+        // 将请求到的数据和之前的数据做合并
+        this.productList = this.productList.concat(res.result);
+        //需要重新计算better-scroll的高度
+        await this.$nextTick();
+          bs.refresh()
+        if ( this.num = this.count) {
+          bs.finishPullUp();
+        };
+      })
     },async getlogo() {
       const res = await getLogoApi();
       this.logoList = res;
