@@ -2,7 +2,6 @@
   <div class="list_item">
     <!-- 开启顶部安全区适配 -->
     <van-nav-bar safe-area-inset-top /> 
-    <div>这是列表详情页面</div>
     <!-- 顶部搜索栏 -->
     <van-search
       v-model="value"
@@ -17,9 +16,8 @@
     </van-search>
     <!-- 侧边导航栏 -->
     <van-sidebar v-model="activeKey">
-      <van-sidebar-item v-for="item in list" :key="item.id" :title="list.title" />
+      <van-sidebar-item v-for="item in this.list_contain" :key="item.id" :title="item.title" />
     </van-sidebar>
-    <button @click="show">asdfasdfasd</button>
   </div>
 </template>
 
@@ -78,10 +76,7 @@ export default defineComponent({
       }
     ])
     ;
-    const trans_list_contain = function(){
-      return list_contain;
-    }
-    return { value, activeKey, trans_list_contain }
+    return { value, activeKey, list_contain }
   },
   // methods:{
   //   show (){

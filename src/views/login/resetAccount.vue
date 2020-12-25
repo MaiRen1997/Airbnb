@@ -27,11 +27,33 @@
         发送验证码
         </div>
       </div>
-      <div class="check_pwd">
+      <!-- <div class="check_pwd">
         <input type="text" placeholder="请输入新密码"/>
       </div>
       <div class="check_pwd">
         <input type="text" placeholder="请确认新密码"/>
+      </div> -->
+      <div class="check_pwd">
+        <input 
+          type="text"
+          placeholder="请输入密码"
+          v-model="password"
+          @keyup.enter="is_pwd_suitable"
+          @input="is_pwd_suitable"
+          @blur="is_pwd_suitable"
+        />
+        <div class="remind" v-if="pwd_show">*密码包含 数字,英文,字符中的两种以上，长度6-20</div>
+      </div>
+      <div class="check_pwd">
+        <input
+          type="text"
+          placeholder="请重新输入密码"
+          v-model="again_password"
+          @keyup.enter="is_same"
+          @blur="is_same"
+          @input="is_same"
+        />
+        <div class="remind" v-if="again_pwd_show">*密码输入不一致</div>
       </div>
       <!-- 按钮 -->
       <van-button
@@ -53,16 +75,26 @@
       </div>
     </div>
     <!-- 开启底部安全区 -->
-    <van-number-keyboard safe-area-inset-bottom />
+    <!-- <van-number-keyboard safe-area-inset-bottom /> -->
   </div>
 </template>
 
 <script>
+import { ref,reactive } from 'vue';
 import { defineComponent } from 'vue';
 //引入路由
 import { useRouter } from "vue-router"
 export default defineComponent ({
   setup(){
+    let password = ref('');
+    //获取第二次密码
+    let again_password = ref('');
+    let sms = ref('');
+    //密码提示显隐
+    let pwd_show = ref(true);
+    let again_pwd_show = ref(true);
+    let reg = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$"
+    let pwdReg = new RegExp(reg)
     //引用路由
     const router = useRouter();
     //返回上一页
@@ -79,7 +111,38 @@ export default defineComponent ({
       router.push("/resign");
       // console.log(1);
      }
-  return { onClickLeft, go_login, go_resign }
+      const is_pwd_suitable = function(){
+      if(!password.value){//为空的情况
+        pwd_show.value = true;
+      }else{//不为空的情况
+        if(again_password.value === password.value){
+          again_pwd_show.value = false;
+          }
+        else{
+          again_pwd_show.value = true;
+        }
+        if(!(pwdReg.test(password.value))){//正则不正确的情况
+          pwd_show.value = true;
+        }else{
+          pwd_show.value = false;
+        }
+      }
+    }
+    //两次密码校验
+    const is_same= function () { 
+      if(!again_password.value){//为空的情况
+        pwd_show.value = true;
+      }else{
+        if(again_password.value === password.value){
+          again_pwd_show.value = false;
+          }
+        }
+     }
+     //提交方法
+     const submit = function (){
+
+     }
+  return { onClickLeft, go_login, go_resign, is_pwd_suitable, is_same, submit,pwd_show, again_pwd_show, password, again_password }
   }
 });
 </script>

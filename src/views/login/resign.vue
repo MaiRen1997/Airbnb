@@ -25,22 +25,28 @@
         <!-- 发送验证码 -->
         <div id="send_msg">
         发送验证码
-        <!-- v-model:password="password" -->
         </div>
       </div>
       <div class="check_pwd">
         <input 
           type="text"
-          placeholder="请输入新密码"
+          placeholder="请输入密码"
           v-model="password"
-          <!-- @blur="is_pwd_suitable" -->
-          @blur="changepwd"
           @keyup.enter="is_pwd_suitable"
+          @input="is_pwd_suitable"
+          @blur="is_pwd_suitable"
         />
         <div class="remind" v-if="pwd_show">*密码包含 数字,英文,字符中的两种以上，长度6-20</div>
       </div>
       <div class="check_pwd">
-        <input type="text" placeholder="请确认新密码"/>
+        <input
+          type="text"
+          placeholder="请重新输入密码"
+          v-model="again_password"
+          @keyup.enter="is_same"
+          @blur="is_same"
+          @input="is_same"
+        />
         <div class="remind" v-if="again_pwd_show">*密码输入不一致</div>
       </div>
       <!-- 按钮 -->
@@ -59,12 +65,11 @@
       </div>
     </div>
     <!-- 开启底部安全区 -->
-    <van-number-keyboard safe-area-inset-bottom />
+   <!--  <van-number-keyboard safe-area-inset-bottom /> -->
   </div>
 </template>
 <script>
-import { ref } from "vue";
-import { reactive } from "vue";
+import { ref, reactive } from "vue";
 import loginPhoneVue from './loginPhone.vue';
 import { defineComponent } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
@@ -76,48 +81,62 @@ export default defineComponent({
     let username = ref('');
     let imgurl =reactive([]);
     //获取密码
-    let wang = ref('1243');
+    let password = ref('');
     //获取第二次密码
     let again_password = ref('');
     let sms = ref('');
     //密码提示显隐
-    let pwd_show = true;
-    let again_pwd_show = true;
+    let pwd_show = ref(true);
+    let again_pwd_show = ref(true);
     //密码正则
     // let  reg = "^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)])+$).{6,20}$";
-    let reg = "^1";
-    // let reg = "^123.*abc$";
+    //至少包含数字和字母， 6~20位
+    let reg = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$"
+    // let reg = "^1";
     let pwdReg = new RegExp(reg)
     //左上角点击回退方法
     const router = useRouter();
     const onClickLeft = function(){
       router.go(-1);
     }
+    //提交方法
+    const submit = function (){
+      
+    }
     //去注册页面
     const go_login =function(){
       router.push("/loginPassword")
       ;
     }
-    //
-    const wang= function () { 
-      password.value = 20
-     }
-
     //密码正则验证方法
     const is_pwd_suitable = function(){
-      // let pwd = password.value;
-      // if(!password){
-      //   pwd_show = true;
-      // }else if(reg.test(password)){
-      //   pwd_show = true;
-      // }else{
-      //   pwd_show = false;
-      // }
-      console.log(password);
-      // console.log(pwdReg.test("45123"));
+      if(!password.value){//为空的情况
+        pwd_show.value = true;
+      }else{//不为空的情况
+        if(again_password.value === password.value){
+          again_pwd_show.value = false;
+          }
+        else{
+          again_pwd_show.value = true;
+        }
+        if(!(pwdReg.test(password.value))){//正则不正确的情况
+          pwd_show.value = true;
+        }else{
+          pwd_show.value = false;
+        }
+      }
     }
-    
-    return { value, username, sms, password, go_login, onClickLeft, pwd_show, again_pwd_show, is_pwd_suitable, wang };
+    //两次密码校验
+    const is_same= function () { 
+      if(!again_password.value){//为空的情况
+        pwd_show.value = true;
+      }else{
+        if(again_password.value === password.value){
+          again_pwd_show.value = false;
+          }
+        }
+     }
+    return { value, username, sms, password, again_password, go_login, onClickLeft, pwd_show, again_pwd_show, is_pwd_suitable, submit, is_same };
   }
 });
 </script>
