@@ -53,6 +53,10 @@ const routes = [
       path:'input',
       component: ()=> import('../views/input/input.vue'),
     }]
+  },
+  {
+    path: '/detail',
+    component: () => import('../views/detail/detail.vue')
   }
 ] 
 export const router = createRouter({

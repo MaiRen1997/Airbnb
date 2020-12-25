@@ -15,3 +15,6 @@ a {
 .search .van-search__content {
   border-radius: 8px;
 }
+.detail .van-icon-star-o::before {
+  font-size: 25px;
+}

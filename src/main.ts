@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import { router } from "./route/index";
-import './index.css'
+// import './index.css'
 //引入vant css样式
 import 'vant/lib/index.css';
 //引入全局less文件
@@ -24,7 +24,12 @@ import {
   Button,
   Search,
   Toast,
-  Field
+  Field,
+  Lazyload,  //图片懒加载
+  Image as VanImage,   //圆形图片
+  ActionBar, //商品导航
+  ActionBarIcon, //商品导航
+  ActionBarButton  //商品导航
 } from 'vant';
 
 
@@ -57,8 +62,16 @@ app.use(Toast);
 //引入搜索框
 app.use(Search);
 //自定义图片
-app.use(Grid)
-app.use(GridItem)
+app.use(Grid);
+app.use(GridItem);
+// 引入轮播懒加载
+app.use(Lazyload);
+// 引入圆形图片
+app.use(VanImage);
+// 引入购物车购买的商品导航
+app.use(ActionBar);
+app.use(ActionBarIcon);
+app.use(ActionBarButton);
 
 app.use(router);
 app.mount('#app');
