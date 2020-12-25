@@ -28,6 +28,8 @@ import {
   Toast,
   Field,
   // NumberKeyboard,
+  Sidebar,
+  SidebarItem
 } from 'vant';
 
 
@@ -64,5 +66,9 @@ app.use(Grid);
 app.use(GridItem);
 //使用数字键盘
 // app.use(NumberKeyboard)
+//侧边导航栏
+app.use(Sidebar);
+app.use(SidebarItem);
+
 app.use(router);
 app.mount('#app');

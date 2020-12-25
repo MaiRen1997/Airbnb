@@ -65,4 +65,9 @@
 }
 .login .check_pwd {
   margin-bottom: 30px;
+  width: 100%;
+}
+.login .check_pwd .remind {
+  font-size: 12px;
+  color: red;
 }
