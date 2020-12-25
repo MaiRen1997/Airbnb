@@ -82,6 +82,6 @@ export default defineComponent({
   }
 });
 </script>
-<style lang="ts" scoped>
+<style lang="less" scoped>
 
 </style>
