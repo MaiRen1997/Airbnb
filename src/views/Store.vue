@@ -16,20 +16,29 @@
         <van-icon name="ellipsis" size="18" />
       </van-button>
     </div>
+
+    <!-- 中部导航 -->
+    <div>
+      
+    </div>
   </div>
 </template>
 
 <script lang='ts'>
 export default {
   data() {
-    return {};
+    return {
+      value:"" as string
+    };
   },
 
   components: {},
 
   computed: {},
 
-  mounted() {},
+  mounted() {
+    this.value = this.$route.params.value;
+  },
 
   methods: {}
 };
