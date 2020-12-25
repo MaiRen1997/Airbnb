@@ -6,7 +6,7 @@ const routes = [
     children:[
       {
         path:'/',
-        redirect: '/home'
+        redirect: 'home'
       },
       { 
         path: 'home',
@@ -30,6 +30,10 @@ const routes = [
     path:'/search',
     component: () => import('../views/Search.vue')
   },
+  {
+    path:'/store/:value',
+    component: () => import('../views/Store.vue')
+  },
   { 
     path: '/test',
     component: () => import('../views/test.vue')
@@ -44,7 +48,7 @@ const routes = [
   },
   { 
     path: '/resetAccount',
-    component: () => import('../views/login/resetAccount.vue')
+    component: () => import('../components/login/resetAccount.vue')
   },
   { 
     path: '/resign',
@@ -57,6 +61,11 @@ const routes = [
   {
     path: '/detail',
     component: () => import('../views/detail/detail.vue')
+    //component: () => import('../views/login/resign.vue')
+    // component: () => import('../views/404.vue')
+  },{
+    path:"/:catchAll(.*)",
+    component:()=>import("../views/404.vue")
   }
 ] 
 export const router = createRouter({

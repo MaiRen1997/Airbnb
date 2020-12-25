@@ -11,11 +11,6 @@ import { onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 export default defineComponent ({
   name: 'App',
-  data(){
-    return {} 
-  },
-  components: {
-  },
   setup() {
     const route = useRoute();
     const router = useRouter();
@@ -26,7 +21,5 @@ export default defineComponent ({
 })
 </script>
 <style lang="less" scope>
-.app {
-  padding-bottom:50px;
-}
+
 </style>

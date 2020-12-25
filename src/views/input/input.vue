@@ -3,18 +3,8 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {};
-  },
-
-  components: {},
-
-  computed: {},
-
-  mounted() {},
-
-  methods: {}
-};
+export default defineComponent ({
+  
+})
 </script>
 <style lang='less' scoped></style>

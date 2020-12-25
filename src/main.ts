@@ -6,6 +6,8 @@ import { router } from "./route/index";
 import 'vant/lib/index.css';
 //引入全局less文件
 import './assets/css/style.less'
+//引入登录注册页css样式
+import "./styles/theme.less"
 //引入postcss相关文件
 import "amfe-flexible"
 
