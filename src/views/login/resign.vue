@@ -17,16 +17,28 @@
     <div class="input_contain">
       <!-- 手机输入框 -->
       <div class="phone">
-        <input type="text" placeholder="请输入手机号"/>
+        <input 
+          type="text"
+          placeholder="请输入手机号"
+          v-model:phoneNumber ="phoneNumber"
+          @blur="inputPhoneNumber"
+          key="phoneNuber"
+        />
       </div>
       <!-- 手机验证码 -->
       <div class="phone">
         <input type="text" placeholder="请输入验证码"/>
         <!-- 发送验证码 -->
-        <div id="send_msg">
-        发送验证码
-        </div>
+        <button 
+        id="send_msg" 
+        @click="sendMessage" 
+        :disabled="isDisabled"
+        :class="{'active':!isDisabled ,'dead':isDisabled }"
+        >
+          {{ Message_state }}
+        </button>
       </div>
+      <!-- 输入密码框 -->
       <div class="check_pwd">
         <input 
           type="text"
@@ -35,9 +47,11 @@
           @keyup.enter="is_pwd_suitable"
           @input="is_pwd_suitable"
           @blur="is_pwd_suitable"
+          key="password"
         />
         <div class="remind" v-if="pwd_show">*密码包含 数字,英文,字符中的两种以上，长度6-20</div>
       </div>
+      <!-- 确认密码框 -->
       <div class="check_pwd">
         <input
           type="text"
@@ -46,6 +60,7 @@
           @keyup.enter="is_same"
           @blur="is_same"
           @input="is_same"
+          key="again_password"
         />
         <div class="remind" v-if="again_pwd_show">*密码输入不一致</div>
       </div>
@@ -69,16 +84,19 @@
   </div>
 </template>
 <script>
-import { ref, reactive } from "vue";
+import { ref, reactive, onUpdated } from "vue";
 import loginPhoneVue from './loginPhone.vue';
 import { defineComponent } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
-// import axios from "axios";
+//引入注册方法
+import { resignApi } from '../../utils/api';
+//引入提示模态框
+import { Toast, ContactList, Notify } from 'vant';
 export default defineComponent({
   setup(){
     let value = ref('');
-    //获取用户名
-    let username = ref('');
+    //获取手机号
+    let phoneNumber = ref();
     let imgurl =reactive([]);
     //获取密码
     let password = ref('');
@@ -88,22 +106,28 @@ export default defineComponent({
     //密码提示显隐
     let pwd_show = ref(true);
     let again_pwd_show = ref(true);
-    //密码正则
-    // let  reg = "^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)])+$).{6,20}$";
-    //至少包含数字和字母， 6~20位
-    let reg = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$"
+    //验证码按钮内容
+    var Message_state = ref('获取验证码');
+    //定义验证码重发倒计时
+    let count = ref(60);
+    //生成的六位数随机码
+    let random_num = ref();
+    //是否可以点击
+    let isDisabled = ref(false);
+    //密码正则  
+    let reg = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$";
+    //手机号正则
+    let myPhoneReg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/;
     // let reg = "^1";
-    let pwdReg = new RegExp(reg)
+    let pwdReg = new RegExp(reg);
+    let phoneReg = new RegExp(myPhoneReg);
+
     //左上角点击回退方法
     const router = useRouter();
     const onClickLeft = function(){
       router.go(-1);
     }
-    //提交方法
-    const submit = function (){
-      
-    }
-    //去注册页面
+    //去登录页面
     const go_login =function(){
       router.push("/loginPassword")
       ;
@@ -135,8 +159,62 @@ export default defineComponent({
           again_pwd_show.value = false;
           }
         }
-     }
-    return { value, username, sms, password, again_password, go_login, onClickLeft, pwd_show, again_pwd_show, is_pwd_suitable, submit, is_same };
+    }
+    //手机框输入
+    const inputPhoneNumber = function(){
+      // this.phoneNumber.value = phoneNumber;
+      console.log(phoneNumber);
+    }
+     //注册提交
+    const submit = function(){
+      // 判断是否可以登录
+      // if(pwdReg.test(phoneNumber.value))
+      // console.log(pwdReg.test(phoneNumber.value));
+      console.log(phoneNumber.value);
+      // resign();
+    }
+    const resign  = async function () { 
+      //请求注册信息
+      const resign_data = await resignApi
+      ({
+          phone:phoneNumber.value,password:password.value
+        });
+      if(resign_data.status ==0){
+        go_login();
+      }
+      // console.log(phoneNumber.value);
+    }
+      //发送验证码
+    const sendMessage = function (){
+      //按钮效果
+      let timer;
+      if(timer){
+        clearInterval(timer);
+      }
+      timer = setInterval(() => {
+        count.value --;
+        this.Message_state = count.value +'s';
+        isDisabled.value = true;
+          // console.log(this.Message_state);
+        if(count.value<=0){
+          clearInterval(timer);
+          count.value=60;
+          this.Message_state = ref('获取验证码');
+          isDisabled.value = false;
+      }
+      }, 100);
+      //生成随机验证码
+      this.random_num = parseInt(Math.random()*1000000);
+      // Notify('您的短信验证码是:   '  + this.random_num);
+      Notify({
+        message:`您的短信验证码是 ${this.random_num}`,
+        color: '#ad0000',
+        background: '#ffe1e1',
+        duration: 6000,
+      });
+      // console.log(this.random_num);
+    }
+    return { value, phoneNumber, sms, password, again_password, go_login, onClickLeft, pwd_show, again_pwd_show, is_pwd_suitable, submit, is_same, sendMessage, Message_state, count, isDisabled, random_num };
   }
 });
 </script>

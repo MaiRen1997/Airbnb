@@ -48,7 +48,7 @@ const routes = [
   },
   { 
     path: '/resetAccount',
-    component: () => import('../components/login/resetAccount.vue')
+    component: () => import('../views/login/resetAccount.vue')
   },
   { 
     path: '/resign',

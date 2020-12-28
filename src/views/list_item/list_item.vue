@@ -14,17 +14,32 @@
       <div @click="onSearch">搜索</div>
     </template>
     </van-search>
-    <!-- 侧边导航栏 -->
-    <van-sidebar v-model="activeKey">
-      <van-sidebar-item v-for="item in this.list_contain" :key="item.id" :title="item.title" />
-    </van-sidebar>
+    <div class="content">
+      <div class="nav-left">
+        <!-- 侧边导航栏 -->
+        <van-sidebar v-model="activeKey">
+          <!-- <van-sidebar-item v-for="item in this.list_contain" :key="item.id" :title="item.title" /> -->
+          <van-sidebar-item v-for="(item, index) in data.list" :key="item.index" :title="item.class" />
+        </van-sidebar>
+      </div>
+     
+      <!-- 右侧内容区 -->
+      <div class="nav-right">
+        <div v-for="item in detail.list1.result">
+          <img :src="item.imgurl" alt="" srcset="">
+        <p class="detail_title">{{item.title}}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, onBeforeMount } from "vue";
 //引入ref
 import { ref, reactive } from "vue";
+//引入请求数据的方法
+import { get_list_itemApi, get_list_detailApi } from '../../utils/api'
 export default defineComponent({
   setup(){
     let value = ref("");
@@ -74,9 +89,33 @@ export default defineComponent({
         id:10,
         title:"配饰"
       }
-    ])
-    ;
-    return { value, activeKey, list_contain }
+    ]);
+    //定义数据
+    let data = reactive({
+      list: []
+    });
+    //定义右侧商品详情数据
+    let detail = reactive({
+      list1:[123]
+    })
+    //onSearch方法
+    const onSearch = function(){
+      // list: []
+    }
+    //获取数据
+    const get_data = async function(){
+      data.list = await get_list_itemApi();
+      console.log(data.list);
+    }
+    const get_list_detail = async function(){
+      detail.list1 = await get_list_detailApi({str:"手机"});
+      console.log(detail.list1.result)
+    }
+    //mount
+    onMounted( get_data );
+    onMounted( get_list_detail );
+    return { value, activeKey, list_contain, onSearch, data, detail }
+    
   },
   // methods:{
   //   show (){
@@ -85,8 +124,8 @@ export default defineComponent({
   //   }
   //   // console.log(list);
   // }, 
-  // mounted() {
-  //   console.log(this.trans_list_contain()); 
+  // onMounted() {
+  //   console.log(this.trans_list_contain());
   // } 
 });
 </script>

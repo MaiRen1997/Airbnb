@@ -7,7 +7,7 @@
     />
     <!-- 开启顶部安全区适配 -->
     <van-nav-bar safe-area-inset-top />
-    <!-- 顶部标题 -->
+    <!-- 顶部标题 --> 
     <van-nav-bar
       title="忘记密码"
       left-text="返回"
@@ -23,9 +23,7 @@
       <div class="phone">
         <input type="text" placeholder="请输入验证码"/>
         <!-- 发送验证码 -->
-        <div id="send_msg">
-        发送验证码
-        </div>
+        <div id="send_msg">发送验证码</div>
       </div>
       <!-- <div class="check_pwd">
         <input type="text" placeholder="请输入新密码"/>
@@ -75,7 +73,6 @@
       </div>
     </div>
     <!-- 开启底部安全区 -->
-    <!-- <van-number-keyboard safe-area-inset-bottom /> -->
   </div>
 </template>
 

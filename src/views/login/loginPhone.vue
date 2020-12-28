@@ -65,7 +65,10 @@ export default {
     const go_resign =function(){
       router.push("/resign");
     }
-    return {onClickLeft, go_resetAccount, go_resign};
+    const submit = function(){
+
+    }
+    return {onClickLeft, go_resetAccount, go_resign, submit};
   }
 };
 </script>

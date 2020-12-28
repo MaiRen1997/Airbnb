@@ -59,9 +59,9 @@ import { defineComponent } from 'vue';
 //引入路由
 import { useRouter } from "vue-router"
 //引入请求数据
-import { login, loginInApi } from "../../utils/api";
+import { loginInApi } from "../../utils/api";
 //引入模态框
-import { Toast } from 'vant';
+import { Toast, ContactList } from 'vant';
 export default defineComponent({
   setup(){
     //使用路由
@@ -86,10 +86,12 @@ export default defineComponent({
         Toast('请输入密码');
         }else{
           if(username.value&&password.value){
+            // console.log(1);
             const res = await loginInApi({loginname:`${username.value}`,password:`${password.value}`});
-            // console.log(res.obj);
+            console.log(res);
             if(!res.status){
               window.localStorage.setItem('isLogin','true');
+              console.log('登录成功')
             }
             else{
               Toast('登录失败，请重试');
