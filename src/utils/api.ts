@@ -12,9 +12,11 @@ const getSwipePicApi = () => http.get("product/searchSwipe");
 
 //首页产品
 const getProductPicApi = (params:object) => http.post("product/searchProduct",params);
+//商品详情
+const getProductdetailApi = (params:object) => http.post("product/searchProductdetailId",params);
 
 //logo图标
 const getLogoApi = () => http.get("product/searchLogo");
 
 
-export { login, getSwipePicApi, getProductPicApi, getLogoApi }
+export { login, getSwipePicApi, getProductPicApi, getLogoApi,getProductdetailApi }

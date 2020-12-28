@@ -31,7 +31,9 @@ import {
   Image as VanImage,   //圆形图片
   ActionBar, //商品导航
   ActionBarIcon, //商品导航
-  ActionBarButton  //商品导航
+  ActionBarButton,  //商品导航
+  ShareSheet,      //分享导航
+  Popup        //弹框
 } from 'vant';
 
 
@@ -74,6 +76,10 @@ app.use(VanImage);
 app.use(ActionBar);
 app.use(ActionBarIcon);
 app.use(ActionBarButton);
+// 引入分享导航
+app.use(ShareSheet);
+// 引入弹框
+app.use(Popup);
 
 app.use(router);
 app.mount('#app');

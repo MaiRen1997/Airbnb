@@ -41,6 +41,36 @@ a {
 .detail .van-icon-star-o::before {
   font-size: 25px;
 }
+.navbar-share .van-popup--round {
+  border-radius: 0px;
+}
+.navbar-share .van-share-sheet__cancel {
+  display: none;
+}
+.navbar-share .van-share-sheet__options--border {
+  padding-top: 0px;
+}
+.navbar-share .van-share-sheet__options--border::before {
+  border: none;
+}
+.navbar-share .van-share-sheet__options .van-share-sheet__option {
+  margin-right: 13px;
+}
+.navbar-share .van-share-sheet__options .van-share-sheet__option .van-share-sheet__icon {
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 33px;
+  height: 33px;
+  padding: 5px;
+}
+.clearfix::after {
+  content: '.';
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  clear: both;
+}
 .store .van-search {
   box-sizing: content-box;
   padding-left: 0!important;

@@ -45,14 +45,16 @@ export default {
     }
     img {
       width: 100%;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     };
     
     p {
       font-size: 11px;
       color: grey;
       font-weight: lighter;
-      padding: 10px 0;
+      padding: 13px 0;
+      text-align: left;
+      margin-left: 10px
     };
 
     .buyitem {

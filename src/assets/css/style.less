@@ -66,6 +66,51 @@ a {
     }
   }
 }
+  
+
+
+// 分享弹窗
+.navbar-share{
+  .van-popup--round{
+    border-radius: 0px;
+  }
+.van-share-sheet__cancel{
+  display: none;
+}
+.van-share-sheet__options--border{
+  padding-top: 0px;
+  &::before{
+    border: none;
+  }
+  
+}
+.van-share-sheet__options{
+  .van-share-sheet__option{
+    margin-right:13px;
+    .van-share-sheet__icon{
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 33px;
+    height:33px;
+    padding: 5px;
+    }
+    
+  }
+}
+
+}
+
+
+
+// 解决高度塌陷
+.clearfix::after {
+  content: '.';
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  clear: both;
+}
 .store {
 
   .van-search {

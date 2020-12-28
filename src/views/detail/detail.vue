@@ -3,106 +3,101 @@
 <!-- 整个详情页面的容器 设置背景色灰色 -->
 <div class="detail">
 
-<!-- 第1张卡片的容器 设置背景色白色 -->
-<div class="product-all">
+
 
 <!-- 第1张卡片——头部导航处 -->
 <div class="navbar">
   <van-nav-bar
-    title="商品标题"
+    :title="detail.producttitle"
     left-arrow
     @click-left="onClickLeft"
     @click-right="onClickRight"
   >
-  <template #right>
-    <van-icon name="share-o" size="18"/>
-  </template>
+  <template #right >
+    <van-icon name="share-o" size="18" @click="showShare = true" />
+    <div class="navbar-share">
+       <van-share-sheet
+  v-model:show="showShare"
+  :options="options"
+/>
+    </div>
+  
+  </template>   
   </van-nav-bar>
 </div>
 
+
+
 <!-- 第1张卡片——商品轮播图 -->
 <div class="my-swipe">
-  <van-swipe :autoplay="3000" indicator-color="white">
-  <van-swipe-item>1</van-swipe-item>
-  <van-swipe-item>2</van-swipe-item>
-  <van-swipe-item>3</van-swipe-item>
-  <van-swipe-item>4</van-swipe-item>
+  <van-swipe :autoplay="3000" indicator-color="black">
+  <van-swipe-item v-for="(item,index) in swiper" :key="index" style="background:white">
+    <img :src="item" alt="" style="width:80%;height:90%;margin-left:40px">
+  </van-swipe-item>
 </van-swipe>
 </div>
 
 <!-- 第1张卡片——商品价格/配色/尺码 -->
 <div class="infor-all">
   <div class="infor-title">
-    <p>商品名称</p>
+    <p>{{ detail.producttitle }}</p>
   </div>
   <div class="infor-color">
     <span>选择配色</span>
-    <span>全部几种配色
+    <span>全部{{color.length}}种配色
       <van-icon name="arrow" />
     </span>
   </div>
   <div class="infor-img">
-    <img src="" alt="">
-    <img src="" alt="">
-    <img src="" alt="">
-    <img src="" alt="">
-    <img src="" alt="">
-    <img src="" alt="">
-    <img src="" alt="">
-    <img src="" alt="">
-  </div>
+    <img :src="item.url" alt="" v-for="item in color">
+    </div>
   <div class="infor-size">
     <div class="choose">
     <span>选择鞋码</span>
     </div>
-    <div>
-      <ul class="size-list">
-      <li>
-        <p>鞋码</p>
-        <p>￥价格</p>
+    <div class="all-size">
+      <ul class="size-list clearfix">
+      <li v-for="(item,index) in small" :key="index">
+        <p>{{ item.size }}</p>
+        <p>￥{{ item.price }}</p>
       </li>
-      <li>
-        <p>鞋码</p>
-        <p>价格</p>
+
+      <!-- 查看全部鞋码——弹出鞋码表 -->
+      <li class="margin-zero">
+        <span @click="showPopup">全部</span><br>
+        <span @click="showPopup">尺码</span>
+        <van-popup 
+          v-model:show="show"
+          position="right"
+          :style="{ width:'80%',height: '100%' }"
+        >
+        <div class="eject-title">
+          <p>{{ detail.producttitle }}</p>
+          <img src="" alt="">图片
+          <p>收藏你想要的尺码，降价时可以通知(可多选)</p>
+        </div>
+        <div class="eject-size">
+          <ul class="eject-list clearfix">
+            <li 
+              v-for="(item,index) in size" 
+              :key="index"
+              :style="index % 4 === 3 ? 'margin-right:0px':''"
+              >
+              {{item.size}}</li>
+          </ul>
+        </div>
+        <div class="eject-btn">
+          <van-button type="primary" size="large" color="#000">确认</van-button>
+        </div> 
+        </van-popup>
       </li>
-       <li>
-        <p>鞋码</p>
-        <p>价格</p>
-      </li>
-       <li>
-        <p>鞋码</p>
-        <p>价格</p>
-      </li>
-       <li>
-        <p>鞋码</p>
-        <p>价格</p>
-      </li>
-       <li>
-        <p>鞋码</p>
-        <p>价格</p>
-      </li>
-      <li>
-        <p>鞋码</p>
-        <p>价格</p>
-      </li>
-      <li>
-        <p>鞋码</p>
-        <p>价格</p>
-      </li>
-      <li>
-        <p>鞋码</p>
-        <p>价格</p>
-      </li>
-      <li>
-        <p>鞋码</p>
-        <p>价格</p>
-      </li>
+        <van-icon name="play" class="size-jt" />
     </ul>
     </div>
     
   </div>
 </div>
-</div>
+
 
 
 <!-- 第2张卡片——商品正品保障 -->
@@ -136,7 +131,7 @@
 <div class="discuss">
 
   <div class="discuss-title">
-    <span>全网评论（几个）</span>
+    <span>全网评论（{{ allcomment.length }}个）</span>
     <span>查看全部
       <van-icon name="arrow" />
     </span>
@@ -147,38 +142,18 @@
   </div>
 
   <div class="discuss-content">
-    <div class="discuss-box">
-      <div class="discuss-nickname">
-      <van-image
-        round
-        width="20px"
-        height="20px"
-        src="https://img.yzcdn.cn/vant/cat.jpeg"
-/>
-      <span>名字</span>
+    <div class="discuss-box" v-for="item in comment">
+      <div class="discuss-nickname" >
+      <img :src="item.header" alt="">
+      <span>{{ item.nico }}</span>
     </div>
     <div class="discuss-text">
       <p>
-        内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+        {{ item.command }}
       </p>
     </div>
     </div>
-        <div class="discuss-box">
-      <div class="discuss-nickname">
-      <van-image
-        round
-        width="20px"
-        height="20px"
-        src="https://img.yzcdn.cn/vant/cat.jpeg"
-/>
-      <span>名字</span>
-    </div>
-    <div class="discuss-text">
-      <p>
-        内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
-      </p>
-    </div>
-    </div>
+     
     
 
   </div>
@@ -199,11 +174,11 @@
     <li>跑鞋科技</li>
   </ul>
   <ul class="param-content">
-    <li>商品id</li>
-    <li>品牌名</li>
-    <li>场景</li>
-    <li>功能</li>
-    <li>跑鞋科技</li>
+    <li>{{ spec.num }}</li>
+    <li>{{ spec.brand }}</li>
+    <li>{{ spec.grand }}</li>
+    <li>{{ spec.spot }}</li>
+    <li>{{ spec.sci }}</li>
   </ul>
   </div>
   
@@ -214,28 +189,44 @@
 <!-- 第5张卡片——穿搭推荐 -->
 <div class="wear">
   <p>穿搭推荐</p>
-  <div>
-    图片九宫格
+  <div class="wear-list">
+    <ul>
+      <li v-for="(item,index) in wear" :key="index" 
+      :style="index % 3 === 2 ? 'margin-right:0px':''">
+        <img :src="item" alt="">
+      </li>
+    </ul>
   </div>
+ 
+  
+  <!-- <div class="wear-checkall">
+    <span>查看全部</span>
+    <van-icon name="arrow" />
+  </div> -->
 </div>
 
 
 <!-- 第6张卡片——尺码表 -->
 <div class="size-chart">
-  <img src="" alt="">尺码表图片
+  <img :src="detail.brandsize" alt="">
 </div>
 
 <!-- 第7张卡片——相关推荐 -->
 <div class="recommend">
   <p>相关推荐</p>
 </div>
-<product :productList="productList"></product>
+  <product :productList="productList" style="margin-bottom:50px"></product>
+
+
 
 <!-- 商品导航 -->
-<van-action-bar>
+<div>
+  <van-action-bar>
   <van-action-bar-icon icon="star-o" @click="onClickIcon" />
-  <van-action-bar-button type="danger" text="立即购买" color="#000" @click="onClickButton" />
+  <van-action-bar-button text="立即购买" color="#000" @click="onClickButton" />
 </van-action-bar>
+</div>
+
 
 </div>
 </template>
@@ -244,14 +235,48 @@
 import product from '../../components/Home/ProductCom.vue';
 
 // import BScroll from '../better-scroll';
-import { getSwipePicApi, getProductPicApi, getLogoApi } from '../../utils/api.ts';
-
+import { getSwipePicApi, getProductPicApi, getLogoApi,getProductdetailApi } from '../../utils/api.ts';
+import { ref } from 'vue';
 export default {
+  setup() {
+    const showShare = ref(false);
+    const show = ref(false);
+    const options = [
+      [
+        { name: '微信', icon: '/src/assets/detail-img/weixin.png' },
+        { name: '朋友圈', icon: '/src/assets/detail-img/pengyouquan.png' },
+        { name: 'QQ', icon: '/src/assets/detail-img/qq.png' },
+        { name: '微博', icon: '/src/assets/detail-img/weibo.png' },
+      ],
+      [
+        { name: '复制链接', icon: '/src/assets/detail-img/lianjie.png' },
+      ],
+    ];
+       const showPopup = () => {
+      show.value = true;
+    };
+
+    return {
+      options,
+      showShare,
+      show,
+      showPopup
+    };
+  },
   data() {
     return {
       count:4,
       start:0,
-      productList:[]
+      productList:[],
+      detail:{},
+      color:[],
+      size:[],
+      spec:{},
+      wear:[],
+      swiper:[],
+      comment:[],
+      allcomment:[],
+      small:[]
     }
   },
   components: {
@@ -259,24 +284,47 @@ export default {
   },
   mounted() {
     this.getProduct();
+    this.getProductdetail();
   },
   methods:{
      async getProduct() {
       const res = await getProductPicApi({count: this.count, start: this.start});
       this.productList = res.result;
-      console.log(res)
-     }
-  }
+      //console.log(res)
+     },
+    async getProductdetail() {
+      const res = await getProductdetailApi({productId:1});
+      //this.productList = res.result;
+        this.detail= res.obj;
+        this.color=JSON.parse(res.obj.productcolor);
+        this.size=JSON.parse(res.obj.productsize);
+        this.spec=JSON.parse(res.obj.params);
+        this.wear=JSON.parse(res.obj.wear)
+        this.swiper=JSON.parse(res.obj.productimgurl);
+        this.allcomment=JSON.parse(res.obj.comment);
+        this.comment=res.com;
+        this.small=res.small;
+        // console.log(this.comment);
+
+
+        console.log(res.obj.productsize);
+        // console.log(res.obj.productsize);
+        // console.log(typeof(this.size));
+        console.log(res.obj);
+  }}
 
 }
 </script>
 
 <style lang="less" scoped>
 
+
+
 // 整个详情的背景
 .detail{
   background: #ececec;
 }
+
 
 // 第1张卡片背景
 .product-all {
@@ -292,7 +340,9 @@ export default {
 
 // 第1张卡片——价格/尺码/配色
   .infor-all{
-    margin:0px 10px;
+    padding:0px 10px;
+    background: #fff;
+    box-sizing: border-box;
     .infor-title{
       font-size: 19px;
       font-weight: 900;
@@ -322,19 +372,19 @@ export default {
       }
       img{
         width: 60px;
-        height: 60px;
+        height: 45px;
         margin-right: 15px;
         margin-top: 10px;
-        border: 1px solid #ccc;
+        border: 1px dashed #ccc;
         border-radius: 5px;
+        padding: 10px 5px;
       }
     }
     .infor-size{
         margin-top: 10px;
         border-top: 1px solid #E4E4E4;
-        height: 30px;
+        height: 50px;
         position: relative;
-        padding:10px 0px;
         // .zhegai{
         //   background: white;
         //   box-shadow: 5px 0 2px 2px #fff;
@@ -349,40 +399,53 @@ export default {
         .choose{
           font-size: 12px;
           font-weight: 900;
-          line-height: 30px;
-          width: 65px;
+          line-height: 32px;
+          width: 55px;
           // border: 1px solid black;
+          margin-top: 10px;
           background-image: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0.774));
 
         }   
-          .size-list{
+        .all-size{
+            .size-list{
         font-size: 12px;
         font-weight: 500;
         width: 300px;
-        height: 30px;
+        height: 32px;
         position: absolute;
         right: 0;
         left: 50px;
-        top: 0;
-        overflow: auto;
+        top: 10px;
+        overflow-x: auto;
+        overflow-y: hidden;
         white-space: nowrap;
-        padding-top: 10px;
+        margin-left: 10px;
+        
+        // margin-top: 10px;
         &::-webkit-scrollbar{
         display: none;
         z-index: 1;
       }
+        }
+        
 
         li{
           display: inline-block;
           width: 40px;
           text-align: center;
-          height: 30px;
-          margin-right: 25px;
+          height: 32px;       
           white-space: nowrap;
           //background: rosybrown;
-          &:nth-of-type(1){
-            margin-left: 15px;
+          margin-right: 25px;
+         
+      
+           p{
+            &:nth-of-type(1){
+              font-weight: 900;
+            }
           }
+         
+          
         }
       }
     
@@ -392,6 +455,15 @@ export default {
       
   }
 
+  .margin-zero{
+    margin-right: 0!important;
+  }
+.size-jt{
+    vertical-align: 3px!important;
+    font-weight: 900;
+    
+  
+  }
 
 // 第2张卡片——正品保障
   .promise{
@@ -399,6 +471,7 @@ export default {
     margin-top: 7px;
     padding: 10px;
     position: relative;
+    box-sizing: border-box;
     .promise-official{
       width: 100px;
       background: #000;
@@ -442,6 +515,8 @@ export default {
   background: #fff;
   margin-top: 7px;
   padding: 10px;
+  box-sizing: border-box;
+
 
   .discuss-title{
       font-size: 14px;
@@ -462,6 +537,8 @@ export default {
       background: #E6E6E6;
       padding: 3px 15px;
       border-radius: 3px;
+      box-sizing: border-box;
+
     }
   }
   .discuss-content{
@@ -474,6 +551,11 @@ export default {
         vertical-align: 5px;
         margin-left: 5px;
         color: #858585;
+      }
+      img{
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
       }
     }
 
@@ -505,6 +587,8 @@ export default {
   background: #fff;
   margin-top: 7px;
   padding: 10px;
+  box-sizing: border-box;
+
   p{
     font-size: 14px;
     font-weight: 900;
@@ -538,9 +622,37 @@ export default {
   margin-top: 7px;
   padding: 10px;
   height: 440px;
+  box-sizing: border-box;
   p{
     font-size: 14px;
     font-weight: 900;
+  }
+}
+
+.wear-list{
+  margin-right: 20px;
+  width: 360px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  li{
+    
+    float: left;
+    margin-right: 5px;
+  }
+ 
+  img{
+    width: 115px;
+    height: 115px;
+  }
+}
+.wear-checkall{
+  font-size: 14px;
+  font-weight: 900;
+  margin-top: 5px;
+  color: #858585;
+  .van-icon{
+    vertical-align: -2px;
+    float: right;
   }
 }
 
@@ -551,6 +663,12 @@ export default {
   padding: 10px;
   background: #fff;
   height: 590px;
+  box-sizing: border-box;
+
+  img{
+    width: 355px;
+    height: 590px;
+  }
 }
 
 
@@ -559,6 +677,8 @@ export default {
   margin-top: 7px;
   padding: 10px;
   background: #fff;
+  box-sizing: border-box;
+
   p{
     font-size: 14px;
     font-weight: 900;
@@ -567,9 +687,88 @@ export default {
 
 
 // 商品导航
+.van-action-bar-icon{
+  width: 80px;
+}
+.van-action-bar{
+  //background:red;
+  //margin-top: 50px;
 .van-action-bar-button{
   border-radius: 0px;
+  width: 200px;
+  }
+
+  .van-button{
+    width: 200px;
+  }
 }
+
+
+
+
+// 弹出鞋码
+.van-popup{
+  box-sizing: border-box;
+  position: relative;
+
+  .eject-title{
+  margin-top: 10px;
+  height: 200px;
+  position: fixed;
+  left: 20px;
+  p{
+    &:nth-of-type(1){
+      font-size: 16px;
+    }
+    &:nth-of-type(2){
+      font-size: 13px;
+      padding: 5px 0;
+
+    }
+  }
+  img{
+    margin:30px 0 10px 0;
+    width: 120px;
+    height: 90px;
+  }
+}
+
+.eject-size{
+  // position: relative;
+  margin-top: 200px;
+  height: 390px;
+   .eject-list{
+    margin-top: 10px;
+    margin-left: 20px;
+    // overflow-y: auto;
+    overflow-y: auto;
+    position: sticky;
+  height: 390px;
+
+
+    li{
+      float: left;
+      width: 55px;
+      height: 55px;
+      background: #E4E4E4;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 55px;
+      margin:10px 10px 0 0px;
+    }
+  }
+
+}
+
+.eject-btn{
+  position: fixed;
+  bottom: 10px;
+  right: 5px;
+  left: 5px;
+}
+
+}
+
 
 
 
