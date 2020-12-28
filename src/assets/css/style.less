@@ -93,6 +93,14 @@ a {
     color: #a9a9a9;
   };
 
+  .van-icon {
+    transition: all 0.5s;
+  }
+
+  .rotateIcon {
+    transform: rotate(180deg);
+  }
+
   .brandName {
     display: flex;
     justify-content: flex-start;
@@ -116,6 +124,11 @@ a {
       white-space: nowrap;
       font-size: 15px;
     };
+
+    .activeBrand {
+      background: #343434;
+      color: white
+    };
   }
 
   .colorName {
@@ -129,14 +142,19 @@ a {
     margin-bottom: 30px;
 
     div {
-      width: 18%;
+      width: 15%;
       margin-bottom: 10px;
       margin-right: 10px;
-      padding: 18% 0 0;
+      padding: 15% 0 0;
       box-sizing: border-box;
       border-radius: 50%;
       border: 1px solid rgba(105, 105, 105, 0.411);
       font-size: 15px;
     };
+
+    .activeColor {
+      box-shadow:  0 3px 3px 0 rgb(126, 126, 126);
+      border: 1px solid white;
+    }
   }
 }

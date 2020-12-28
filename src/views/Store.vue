@@ -20,12 +20,11 @@
     <div class="navList">
       <p
       v-for="(item, index) in navList" :key="index"
-      :class="{ active:index === isActive, navItem: true}"
-      @click.stop="navClick(index)"
-      @click=" showPopup(index)"
+      :class="{ active:index === isNavActive, navItem: true}"
+      @click="[navClick(index),showPopup(index)]"
       >
         {{ item.name }}
-        <van-icon :name="item.icon" />
+        <van-icon :name="item.icon" :class="{ rotateIcon: rotatePriceIcon && index === 2}"/>
       </p>
     </div>
     <!-- 弹出框 -->
@@ -44,12 +43,21 @@
               品牌
             </h4>
             <div>
-              <span>展开</span>
-              <van-icon name="arrow-down" size="12" />
+              <span>{{ branzhankai }}&nbsp;</span>
+              <van-icon name="arrow-down" size="12" :class="{rotateIcon: rotateBrandIcon}" />
             </div>
           </div>
-          <div :style="{height:`${Math.ceil((brandList.length / 3)) * 39}px`}" :class="{ showbrand: hiddenBrand }" class="brandName">
-            <div v-for="(item, index) in brandList" :key="index">
+          <div
+          :style="{height:`${Math.ceil((brandList.length / 3)) * 39}px`}"
+          :class="{ showbrand: hiddenBrand}"
+          class="brandName"
+          >
+            <div
+            v-for="(item, index) in brandList"
+            :key="index"
+            :class="{activeBrand:index === isBrandActive}"
+            @click="brandClick(index,item)"
+            >
               {{ item }}
             </div>
           </div>
@@ -58,15 +66,25 @@
         <div class="color">
           <div class="title" @click="showColorList">
             <h4>
-              品牌
+              颜色
             </h4>
             <div>
-              <span>展开</span>
-              <van-icon name="arrow-down" size="12" />
+              <span>展开 </span> 
+              <van-icon name="arrow-down" size="12" :class="{rotateIcon: rotateColorIcon}" />
             </div>
           </div>
-          <div :style="{height:`${Math.ceil((colorList.length / 4)) * 61}px`}" :class="{ showcolor: hiddenColor }" class="colorName">
-            <div v-for="(item, index) in colorList" :key="index" :style="{background:item}">
+          <div
+          :style="{height:`${Math.ceil((colorList.length / 4)) * 45}px`}"
+          :class="{ showcolor: hiddenColor}"
+          class="colorName"
+          >
+            <div 
+            v-for="(item, index) in colorList"
+            :key="index"
+            :style="{background:item}"
+            :class="{activeColor:index === isColorActive}"
+            @click="colorClick(index)"
+            >
             </div>
           </div>
         </div>
@@ -103,12 +121,18 @@ export default {
   },
   data() {
     return {
+      rotatePriceIcon:false,
+      rotateBrandIcon:false,
+      rotateColorIcon:false,
       nopic: nopic,
       hiddenBrand: true,
       hiddenColor:true,
       exist: true,
       value: "",
-      isActive: 0,
+      isNavActive: 0,
+      isBrandActive: -1,
+      branzhankai:"展开",
+      isColorActive: -1,
       brandList: [
         "Nike",
         "adidas",
@@ -120,16 +144,21 @@ export default {
         "李宁",
       ],
       colorList:[
-        "yellow",
-        "red",
-        "blue",
-        "green",
-        "pink",
-        "white",
-        "black",
-        "purple",
-        "lightblue",
-        "linear-gradient(to bottom,white,black)"
+        "#CC0303",
+        "#BF0447",
+        "#B70098",
+        "#B70098",
+        "#0039C3",
+        "#0039C3",
+        "#0039C3",
+        "#64C500",
+        "#B4CA00",
+        "#E2D900",
+        "#D14A00",
+        "#FFFFFF",
+        "#000000",
+        "linear-gradient(to bottom,white,black)",
+        "linear-gradient(to bottom,white,grey)"
       ],
       navList: [
         {name: "综合", icon:""},
@@ -151,19 +180,30 @@ export default {
       this.exist = data;
     },
     navClick(index) {
-      this.isActive = index;
-    },
-    showPopup() {
-      alert(1);
+      this.isNavActive = index;
+      if(index === 2) {
+        this.rotatePriceIcon = true;
+      } else {
+        this.rotatePriceIcon = false;
+      };
     },
     clickFlag(index) {
       index === 3;
     },
     showBrandList() {
       this.hiddenBrand = !this.hiddenBrand;
+      this.rotateBrandIcon = !this.rotateBrandIcon;
+    },
+    brandClick(index,val) {
+      this.branzhankai = val
+      this.isBrandActive = index;
+    },
+    colorClick(index) {
+      this.isColorActive = index;
     },
     showColorList() {
       this.hiddenColor = !this.hiddenColor;
+      this.rotateColorIcon = !this.rotateColorIcon;
     }
   }
 };
@@ -176,7 +216,7 @@ export default {
     height: 70px!important;
   }
   .showcolor {
-    height: 60px!important;
+    height: 52px!important;
   }
   .pop {
     h4 {
