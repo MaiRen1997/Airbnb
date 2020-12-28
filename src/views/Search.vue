@@ -9,14 +9,13 @@
       @input="onInput(value)"
       @clear="onClear()"
       @cancel="onCancel(value)"
-      clearable="true"
-      autofocus="true"
+      autofocus= true
       style="margin-top:20px"
     />
 
     <div v-if="show">
       <ul class="maybeList">
-        <li v-for="(item, index) in searchValue" :key="index">
+        <li v-for="(item, index) in searchValue" :key="index" @click="mayBeTo(item)">
           {{ item }}
         </li>
       </ul>
@@ -33,14 +32,15 @@
           :key="index"
           size="small"
           style="margin-left:10px; padding: 0 10px"
+          :to="'/store/'+ item"
           >{{ item }}
           </van-button>
         </div>
       </div>
 
-      <!-- 历史记录 -->
+      <!-- 搜索发现 -->
       <div class="history">
-        <p>历史记录</p>
+        <p>搜索发现</p>
         <div class="hisBut-2">
           <van-button
           type="primary"
@@ -48,7 +48,9 @@
           :key="index"
           size="small"
           style="margin-left:10px; margin-bottom:5px; padding: 0 10px"
-          >{{ item }}</van-button>
+          :to="'/store/'+ item"
+          >{{ item }}
+          </van-button>
         </div>
       </div>
 
@@ -78,26 +80,26 @@ export default {
     return {
       show:false,
       value: '',
-      history: [
-        "New Balance",
-        "Jordan"
-      ],
+      history: [],
       his: [
-        "New Balance",
         "Jordan",
-        "New Balance",
-        "Jordan",
-        "New Balance",
-        "Jordan",
-        "New Balance",
-        "Jordan",
-        "New Balance",
-        "Jordan"
+        "科比",
+        "欧文6",
+        "字母歌",
+        "詹姆斯",
+        "冰淇淋",
+        "库里7",
+        "皮蓬",
+        "pg4",
+        "kt5",
+        "aj1",
+        "aj6",
+        "yeezy 350"
       ],
       hotpic: [
-        testImg,
-        testImg,
-        testImg
+        "/src/assets/img/周雨彤同款.jpeg",
+        "/src/assets/img/nb530白银.jpeg",
+        "/src/assets/img/Nike白绿粉寿桃.jpeg"
       ],
       searchValue: [
         "nike",
@@ -109,9 +111,16 @@ export default {
       ]
     };
   },
+  mounted() {
+    if (localStorage.getItem("searchHistory")) {
+      this.history = JSON.parse(localStorage.getItem("searchHistory"));
+    };
+  },
   methods: {
-    onSearch(val) {
-      this.$router.push(`/store/${this.value}`);
+    onSearch() {
+      this.history.push(this.value);
+      localStorage.setItem("searchHistory", JSON.stringify(this.history));
+      this.$router.replace(`/store/${this.value}`);
     },
     onInput(val) {
       if (val != "") {
@@ -127,6 +136,9 @@ export default {
       this.show = false;
       this.$router.go(-1);
     },
+    mayBeTo(val) {
+      this.$router.replace(`/store/${val}`);
+    }
   }
 };
 </script>
@@ -198,6 +210,7 @@ export default {
       width: 100px;
       height: 100px;
       border: 1px solid rgb(26, 26, 26);
+      background: white;
       overflow: hidden;
       display: flex;
       justify-content: center;
@@ -227,6 +240,11 @@ export default {
         color: black;
         font-size: 13px;
         border: 1px solid rgb(26, 26, 26);
+      }
+
+      img {
+        max-width: 90%;
+        max-height: 90%;
       }
     }
   }

@@ -16,5 +16,7 @@ const getProductPicApi = (params:object) => http.post("product/searchProduct",pa
 //logo图标
 const getLogoApi = () => http.get("product/searchLogo");
 
+//store页商品
+const getStoreProductApi = (params:object) => http.post("product/searchProductinput",params);
 
-export { login, getSwipePicApi, getProductPicApi, getLogoApi }
+export { login, getSwipePicApi, getProductPicApi, getLogoApi, getStoreProductApi};

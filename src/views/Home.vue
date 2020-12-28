@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import textImg from '../assets/logo.png';
+import { Toast } from 'vant';
 import BScroll from 'better-scroll';
 import { getSwipePicApi, getProductPicApi, getLogoApi } from '../utils/api.ts';
 import product from '../components/Home/ProductCom.vue';
@@ -96,7 +96,7 @@ export default {
         click:true,
         pullUpLoad: true
       });
-      //监听滚动到底的时间
+      //监听滚动到底的事件
       bs.on("pullingUp", async() => {
         //整理字符串
         this.start += this.count
@@ -114,10 +114,9 @@ export default {
     },async getlogo() {
       const res = await getLogoApi();
       this.logoList = res;
-      console.log(res);
     },
     onClickRight() {
-      Toast('按钮');
+      Toast('还没做');
     }
   }
 };

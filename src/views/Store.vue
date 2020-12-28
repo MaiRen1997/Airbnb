@@ -1,14 +1,14 @@
 <template>
-  <div class="store">
+  <div class="store" v-if="value">
     <!-- 顶部 -->
     <div class="search">
       <!-- 左侧回退图标 -->
-      <van-button type="default" to="/search">
+      <van-button type="default" to="/search" replace="true">
         <van-icon name="arrow-left" size="18" />
       </van-button>
       <!-- 搜索框 -->
       <van-search class="search" v-model="value" placeholder="请输入搜索关键词" />
-
+      <!-- 右侧按钮 -->
       <van-button type="default">
         <van-icon name="coupon-o" size="18" />
       </van-button>
@@ -39,7 +39,7 @@
         </div>
         <!-- 商品 -->
         <div class="brand">
-          <div class="title" @click="showList">
+          <div class="title" @click="showBrandList">
             <h4>
               品牌
             </h4>
@@ -48,50 +48,49 @@
               <van-icon name="arrow-down" size="12" />
             </div>
           </div>
-          <div :style="{height:`${Math.ceil((brandList.length / 3)) * 39}px`}" :class="{ showbrand: hidden }" class="brandName">
+          <div :style="{height:`${Math.ceil((brandList.length / 3)) * 39}px`}" :class="{ showbrand: hiddenBrand }" class="brandName">
             <div v-for="(item, index) in brandList" :key="index">
               {{ item }}
             </div>
           </div>
         </div>
-      </div>
-      
-    </van-popup>
-    <!-- 商品列表 -->
-    <main class="mianWrapper">
-      <div class="content">
-        <div v-for="(item, index) in productList" :key="index" ref="content" class="product">
-          <h4>
-            {{ item.title }}
-          </h4>
-          <div :class="[`product${index}`, 'wrapper']">
-            <ul>
-              <li v-for="(shoes, index) in item.arr" :key="index">
-                <figure>
-                  <img :src="shoes.imgurl" alt="">
-                </figure>
-                <h6>
-                  {{ shoes.style }}
-                </h6>
-                <span>￥ {{ shoes.price }}起</span>
-              </li>
-            </ul>
+        <!-- 颜色 -->
+        <div class="color">
+          <div class="title" @click="showColorList">
+            <h4>
+              品牌
+            </h4>
+            <div>
+              <span>展开</span>
+              <van-icon name="arrow-down" size="12" />
+            </div>
+          </div>
+          <div :style="{height:`${Math.ceil((colorList.length / 4)) * 61}px`}" :class="{ showcolor: hiddenColor }" class="colorName">
+            <div v-for="(item, index) in colorList" :key="index" :style="{background:item}">
+            </div>
           </div>
         </div>
       </div>
-    </main>
+    </van-popup>
+    <!-- 商品列表 -->
+    <product :value="value" @func="getExist" v-if="exist"></product>
+    <div v-else>
+      <img :src="nopic" alt="">
+      暂未找到相关内容
+    </div>
   </div>
 </template>
 
-<script lang='ts'>
-import BScroll from 'better-scroll';
+<script>
 import { ref } from 'vue';
+import product from '../components/store/productList.vue';
+import nopic from '../assets/nopic.png';
 
 export default {
    setup() {
     const show = ref(false);
     const showPopup = (i) => {
-      if(i==3) {
+      if(i === 3) {
         show.value = true;
       };
     };
@@ -104,156 +103,53 @@ export default {
   },
   data() {
     return {
-      hidden:true,
-      number:0,
-      value:"" as string,
-      isActive:0 as number,
-      brandList:[
-        "sadasdasd",
-        "asafaf",
-        "asfsafa",
-        "xczxc",
-        "sadasdasd",
-        "asafaf",
-        "asfsafa",
-        "xczxc",
+      nopic: nopic,
+      hiddenBrand: true,
+      hiddenColor:true,
+      exist: true,
+      value: "",
+      isActive: 0,
+      brandList: [
+        "Nike",
+        "adidas",
+        "Jordan",
+        "New Balance",
+        "Puma",
+        "Converse",
+        "Vans",
+        "李宁",
       ],
-      navList:[
+      colorList:[
+        "yellow",
+        "red",
+        "blue",
+        "green",
+        "pink",
+        "white",
+        "black",
+        "purple",
+        "lightblue",
+        "linear-gradient(to bottom,white,black)"
+      ],
+      navList: [
         {name: "综合", icon:""},
         {name: "销量", icon:""},
         {name: "价格", icon:"arrow-up"},
         {name: "筛选", icon:"completed"}
-      ] as object,
-      productList: [
-        {
-          title: "Nike Air Force 1",
-          arr: [
-            {
-              imgurl: "/src/assets/img/nike.png",
-              style: "低帮 / 纯白",
-              price: 489
-            },
-            {
-              imgurl: "..//src/assets/img/nike.png",
-              style: "低帮 / 纯白",
-              price: 489
-            },
-            {
-              imgurl: "/src/assets/img/nike.png",
-              style: "低帮 / 纯白",
-              price: 489
-            },
-            {
-              imgurl: "..//src/assets/img/nike.png",
-              style: "低帮 / 纯白",
-              price: 489
-            }
-          ]
-        },
-        {
-          title: "Nike Air Force 1",
-          arr: [
-            {
-              imgurl: "..//src/assets/img/nike.png",
-              style: "低帮 / 纯白",
-              price: 489
-            },
-            {
-              imgurl: "..//src/assets/img/nike.png",
-              style: "低帮 / 纯白",
-              price: 489
-            },
-            {
-              imgurl: "/src/assets/img/nike.png",
-              style: "低帮 / 纯白",
-              price: 489
-            },
-            {
-              imgurl: "..//src/assets/img/nike.png",
-              style: "低帮 / 纯白",
-              price: 489
-            }
-          ]
-        },
-        {
-          title: "Nike Air Force 1",
-          arr: [
-            {
-              imgurl: "/src/assets/img/nike.png",
-              style: "低帮 / 纯白",
-              price: 489
-            },
-            {
-              imgurl: "..//src/assets/img/nike.png",
-              style: "低帮 / 纯白",
-              price: 489
-            },
-            {
-              imgurl: "/src/assets/img/nike.png",
-              style: "低帮 / 纯白",
-              price: 489
-            },
-            {
-              imgurl: "..//src/assets/img/nike.png",
-              style: "低帮 / 纯白",
-              price: 489
-            }
-          ]
-        },
-        {
-          title: "Nike Air Force 1",
-          arr: [
-            {
-              imgurl: "/src/assets/img/nike.png",
-              style: "低帮 / 纯白",
-              price: 489
-            },
-            {
-              imgurl: "..//src/assets/img/nike.png",
-              style: "低帮 / 纯白",
-              price: 489
-            },
-            {
-              imgurl: "/src/assets/img/nike.png",
-              style: "低帮 / 纯白",
-              price: 489
-            },
-            {
-              imgurl: "..//src/assets/img/nike.png",
-              style: "低帮 / 纯白",
-              price: 489
-            }
-          ]
-        }
       ]
     };
   },
+  components: {
+    product
+  },
   mounted() {
     this.value = this.$route.params.value;
-
     //请求数据结束
-    // await 
-    
-    this.$nextTick(() => {
-    do{
-      new BScroll(`.product${this.number}`, {
-        scrollX: true,
-        scrollY: true,
-        click:true
-      });
-      this.number ++
-    }while (this.productList.length > this.number)
-    })
-    this.$nextTick(() => {
-      const bs = new BScroll(".mianWrapper", {
-      scrollX: false,
-      scrollY: true,
-      click:true,
-      pullUpLoad: true
-    });
-    });
   },
   methods: {
+    getExist(data) {
+      this.exist = data;
+    },
     navClick(index) {
       this.isActive = index;
     },
@@ -263,9 +159,11 @@ export default {
     clickFlag(index) {
       index === 3;
     },
-    showList() {
-      this.hidden = !this.hidden;
-      console.log(this.hidden)
+    showBrandList() {
+      this.hiddenBrand = !this.hiddenBrand;
+    },
+    showColorList() {
+      this.hiddenColor = !this.hiddenColor;
     }
   }
 };
@@ -276,6 +174,9 @@ export default {
 .store {
   .showbrand {
     height: 70px!important;
+  }
+  .showcolor {
+    height: 60px!important;
   }
   .pop {
     h4 {
@@ -338,76 +239,6 @@ export default {
       color: #EA210C;
     }
   };
-  
-  .mianWrapper {
-    overflow: hidden;
-    position: absolute;
-    top: 98px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-
-  .product {
-    padding: 20px 0 20px 20px;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.4);
-    text-align: left;
-    background: white;
-
-    h4 {
-      font-size: 18px;
-      font-weight: normal;
-    };
-
-    .wrapper {
-      overflow: hidden;
-      width: 100%;
-    }
-
-    ul {
-      display: inline-flex;
-      justify-content: flex-start;
-      align-items: center;
-      margin-top: 13px;
-      overflow: hidden;
-    };
-
-    li {
-      width: 117px;
-      margin-right: 20px;
-
-      figure {
-        width: 100%;
-        height: 117px;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 1px solid rgba(128, 128, 128, 0.4);
-        background: inherit;
-
-        img {
-          max-height: 70%;
-          max-width: 70%;
-        }
-      }
-
-      h6 {
-        font-size: 14px;
-        height: 26px;
-        line-height: 26px;
-        font-weight: normal;
-        color: #1E1E1E;
-      };
-
-      span {
-        font-size: 12px;
-        font-weight: 400;
-        color: #858585;
-        display: block
-      };
-    }
-  }
 }
 
 </style>
