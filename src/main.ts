@@ -27,7 +27,11 @@ import {
   Search,
   Toast,
   Field,
-  Popup
+  Popup,
+  Sidebar,
+  SidebarItem,
+  Cell, 
+  CellGroup
 } from 'vant';
 
 
@@ -64,6 +68,14 @@ app.use(Grid);
 app.use(GridItem);
 //引入弹出层
 app.use(Popup);
+//使用数字键盘
+// app.use(NumberKeyboard)
+//侧边导航栏
+app.use(Sidebar);
+app.use(SidebarItem);
+//单元格内容页
+app.use(Cell);
+app.use(CellGroup);
 
 app.use(router);
 app.mount('#app');

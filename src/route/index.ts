@@ -43,18 +43,28 @@ const routes = [
     component: () => import('../views/login/loginPassword.vue')
   },
   { 
+    path: '/adminlogin',
+    component: () => import('../views/login/adminLogin.vue')
+  },
+  { 
     path: '/loginPhone',
     component: () => import('../views/login/loginPhone.vue')
   },
   { 
     path: '/resetAccount',
-    component: () => import('../components/login/resetAccount.vue')
+    component: () => import('../views/login/resetAccount.vue')
   },
   { 
     path: '/resign',
     component: () => import('../views/login/resign.vue')
     // component: () => import('../views/404.vue')
-  },{
+  },
+  { 
+    path: '/list_item',
+    component: () => import('../views/list_item/list_item.vue')
+    // component: () => import('../views/404.vue')
+  },
+  {
     path:"/:catchAll(.*)",
     component:()=>import("../views/404.vue")
   }

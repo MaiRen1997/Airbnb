@@ -63,7 +63,14 @@ const http:httpType = {
         }).then(res=>res.json())
         .then(res=>{
           return res;
+          // if(res.status ==0){
+          //   return res;
+          // }
+          // else {
+          //   return res;
+          // }
+          // console.log(res);
         })
   }
 }
-export { http };
+export { http }; 
