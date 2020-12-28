@@ -52,13 +52,15 @@ export default {
       font-size: 11px;
       color: grey;
       font-weight: lighter;
+      text-align: left;
+      margin-left: 10px;
       padding: 13px 0;
     };
 
     .buyitem {
       display: flex;
       justify-content: space-between;
-      padding: 0 5px 5px;
+      padding: 0 8px 5px;
       font-size: 11px;
       font-weight: lighter;
 

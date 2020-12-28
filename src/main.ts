@@ -26,7 +26,8 @@ import {
   Button,
   Search,
   Toast,
-  Field
+  Field,
+  Popup
 } from 'vant';
 
 
@@ -61,6 +62,8 @@ app.use(Search);
 //自定义图片
 app.use(Grid);
 app.use(GridItem);
+//引入弹出层
+app.use(Popup);
 
 app.use(router);
 app.mount('#app');

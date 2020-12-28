@@ -44,20 +44,7 @@
             </template>
           </van-grid-item>
         </van-grid>
-
-        <!-- 产品 -->
-        <!-- <div class="shoes">
-          <div class="pic" v-for="item in productList" :key="item.productid">
-            <figure>
-              <img :src="item.imgurl" alt="">
-            </figure>
-            <p>{{ item.title }}</p>
-            <div class="buyitem">
-              <span>￥{{ item.price }}</span>
-              <span class="sell">{{ item.people }}人付款</span>
-            </div>
-          </div>
-        </div> -->
+        
         <product :productList="productList"></product>
       </div>
     </div>
@@ -79,32 +66,6 @@ export default {
       lunbo: [],
       logoList:[],
       productList:[],
-      pic: [
-        {
-        img: textImg,
-        name: "Nike M2k Tekno",
-        price: 539,
-        sell: 7888
-      },
-      {
-        img: textImg,
-        name: "Nike M2k Tekno",
-        price: 539,
-        sell: 7888
-      },
-      {
-        img: textImg,
-        name: "Nike M2k Tekno",
-        price: 539,
-        sell: 7888
-      },
-      {
-        img: textImg,
-        name: "Nike M2k Tekno",
-        price: 539,
-        sell: 7888
-      }
-      ],
       imgurl:[]
     };
   },
