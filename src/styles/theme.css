@@ -1,11 +1,12 @@
 .login {
   height: 100%;
+  background: url(../assets/background.jpg);
   /* 用户 */
 }
 .login .input_contain {
   width: 100%;
+  height: 710px;
   padding-top: 50px;
-  background: lightgoldenrodyellow;
 }
 .login .phone {
   margin-bottom: 30px;
@@ -53,7 +54,7 @@
 .login .van-field__control {
   height: 80%;
 }
-.login #send_msg {
+.login .send_msg {
   position: absolute;
   width: 100px;
   height: 53px;
@@ -83,13 +84,77 @@
 .content .nav-right {
   flex: 1;
   display: flex;
+  justify-content: space-around;
+  align-content: space-between;
   flex-wrap: wrap;
-  background-color: red;
 }
-.content .nav-right img {
-  width: 100px;
-  height: 100px;
+.content .nav-right .item_contain {
+  display: flex;
+  margin-bottom: 10px;
+  flex-direction: column;
+  border: 1px solid lightgray;
+  box-shadow: 5px 5px 5px lightgray ;
 }
-.content .nav-right .detail_title {
+.content .nav-right .item_contain img {
+  width: 80px;
+  height: 80px;
+}
+.content .nav-right .item_contain .detail_title {
+  width: 80px;
   font-size: 16px;
+}
+.mine_contain {
+  background-color: #f3f3f3;
+}
+.mine_contain .top {
+  margin-top: 50px;
+  background: white;
+  display: flex;
+  height: 110px;
+}
+.mine_contain .top .person_icon {
+  margin-top: 20px;
+  margin-left: 20px;
+  flex: 3;
+  border-radius: 50% 50%;
+  background: lightpink;
+}
+.mine_contain .top .person_info {
+  flex: 8;
+  margin-top: 30px;
+}
+.mine_contain .center {
+  background: white;
+  text-align: left;
+  margin-bottom: 5px;
+}
+.mine_contain .center .history {
+  display: flex;
+}
+.mine_contain .center .history .history_left {
+  flex: 4;
+}
+.mine_contain .center .history .history_right {
+  flex: 4;
+}
+.mine_contain .center .mine_title {
+  height: 50px;
+  line-height: 50px;
+  text-indent: 15px;
+  font-size: 20px;
+  font-weight: bolder;
+}
+.mine_contain .center_bottom {
+  background: white;
+  text-align: left;
+}
+.mine_contain .center_bottom .mine_title {
+  height: 50px;
+  line-height: 50px;
+  text-indent: 15px;
+  font-size: 20px;
+  font-weight: bolder;
+}
+.mine_contain .formate {
+  font-weight: bolder;
 }

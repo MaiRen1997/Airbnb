@@ -62,12 +62,13 @@ const http:httpType = {
             body:data
         }).then(res=>res.json())
         .then(res=>{
-          if(res.status ==0){
-            return res;
-          }
-          else {
-            return res.status;
-          }
+          return res;
+          // if(res.status ==0){
+          //   return res;
+          // }
+          // else {
+          //   return res;
+          // }
           // console.log(res);
         })
   }

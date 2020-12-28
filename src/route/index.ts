@@ -43,6 +43,10 @@ const routes = [
     component: () => import('../views/login/loginPassword.vue')
   },
   { 
+    path: '/adminlogin',
+    component: () => import('../views/login/adminLogin.vue')
+  },
+  { 
     path: '/loginPhone',
     component: () => import('../views/login/loginPhone.vue')
   },

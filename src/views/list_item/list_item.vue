@@ -11,7 +11,7 @@
       @search="onSearch"
     >
     <template #action>
-      <div @click="onSearch">搜索</div>
+      <div @click="onSearch"></div>
     </template>
     </van-search>
     <div class="content">
@@ -25,7 +25,7 @@
      
       <!-- 右侧内容区 -->
       <div class="nav-right">
-        <div v-for="item in detail.list1.result">
+        <div v-for="item in detail.list1.result" class="item_contain">
           <img :src="item.imgurl" alt="" srcset="">
         <p class="detail_title">{{item.title}}</p>
         </div>

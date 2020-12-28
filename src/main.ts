@@ -29,7 +29,9 @@ import {
   Field,
   // NumberKeyboard,
   Sidebar,
-  SidebarItem
+  SidebarItem,
+  Cell, 
+  CellGroup
 } from 'vant';
 
 
@@ -69,6 +71,8 @@ app.use(GridItem);
 //侧边导航栏
 app.use(Sidebar);
 app.use(SidebarItem);
-
+//单元格内容页
+app.use(Cell);
+app.use(CellGroup);
 app.use(router);
 app.mount('#app');

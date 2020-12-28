@@ -6,7 +6,7 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover"
     />
     <!-- 开启顶部安全区适配 -->
-    <van-nav-bar safe-area-inset-top />
+   <!--  <van-nav-bar safe-area-inset-top /> -->
     <!-- 顶部标题 -->
     <van-nav-bar
       title="注册"
@@ -20,17 +20,21 @@
         <input 
           type="text"
           placeholder="请输入手机号"
-          v-model:phoneNumber ="phoneNumber"
+          v-model="phoneNumber"
           @blur="inputPhoneNumber"
           key="phoneNuber"
         />
       </div>
       <!-- 手机验证码 -->
       <div class="phone">
-        <input type="text" placeholder="请输入验证码"/>
+        <input
+          type="text"
+          placeholder="请输入验证码"
+          v-model="input_random_num"
+        />
         <!-- 发送验证码 -->
         <button 
-        id="send_msg" 
+        class="send_msg" 
         @click="sendMessage" 
         :disabled="isDisabled"
         :class="{'active':!isDisabled ,'dead':isDisabled }"
@@ -112,13 +116,15 @@ export default defineComponent({
     let count = ref(60);
     //生成的六位数随机码
     let random_num = ref();
+    //输入的六位随机验证码
+    let input_random_num = ref();
     //是否可以点击
     let isDisabled = ref(false);
     //密码正则  
     let reg = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$";
     //手机号正则
-    let myPhoneReg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/;
-    // let reg = "^1";
+    // let myPhoneReg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/;
+    let myPhoneReg = /^((13[0-9])|(14[5|7])|(15([0-9]))|(18[0,5-9]))\d{8}$/;
     let pwdReg = new RegExp(reg);
     let phoneReg = new RegExp(myPhoneReg);
 
@@ -147,6 +153,7 @@ export default defineComponent({
           pwd_show.value = true;
         }else{
           pwd_show.value = false;
+          return true;
         }
       }
     }
@@ -157,32 +164,51 @@ export default defineComponent({
       }else{
         if(again_password.value === password.value){
           again_pwd_show.value = false;
+          return true;
           }
         }
     }
-    //手机框输入
-    const inputPhoneNumber = function(){
-      // this.phoneNumber.value = phoneNumber;
-      console.log(phoneNumber);
+    //判断手机号是否符合要求
+    const isPhoneNumber = function(){
+      let flag = phoneReg.test(phoneNumber.value);
+      if(flag){//如果正则判断成功
+        return true;
+      }
+      else{
+        Toast('手机号输入有误');
+        return false;
+      }
+      // console.log(flag);
     }
+    //判断输入的验证码是否正确
+    const auth_code = function () { 
+      if(input_random_num.value==random_num.value){
+        return true;
+      }else{
+        Toast("验证码输入有误，请重新输入");
+        return false;
+      }
+     }
      //注册提交
     const submit = function(){
       // 判断是否可以登录
-      // if(pwdReg.test(phoneNumber.value))
-      // console.log(pwdReg.test(phoneNumber.value));
-      console.log(phoneNumber.value);
-      // resign();
+      if(isPhoneNumber()&&is_pwd_suitable()&&is_same()&&auth_code()){
+        resign();
+      }
     }
     const resign  = async function () { 
-      //请求注册信息
+      // 请求注册信息
       const resign_data = await resignApi
       ({
           phone:phoneNumber.value,password:password.value
         });
+      console.log(resign_data);
       if(resign_data.status ==0){
+        Toast('注册成功');
         go_login();
+      }else{
+        Toast(`${resign_data.msg}`);
       }
-      // console.log(phoneNumber.value);
     }
       //发送验证码
     const sendMessage = function (){
@@ -205,16 +231,14 @@ export default defineComponent({
       }, 100);
       //生成随机验证码
       this.random_num = parseInt(Math.random()*1000000);
-      // Notify('您的短信验证码是:   '  + this.random_num);
       Notify({
         message:`您的短信验证码是 ${this.random_num}`,
         color: '#ad0000',
         background: '#ffe1e1',
         duration: 6000,
       });
-      // console.log(this.random_num);
     }
-    return { value, phoneNumber, sms, password, again_password, go_login, onClickLeft, pwd_show, again_pwd_show, is_pwd_suitable, submit, is_same, sendMessage, Message_state, count, isDisabled, random_num };
+    return { value, phoneNumber, sms, password, again_password, go_login, onClickLeft, pwd_show, again_pwd_show, is_pwd_suitable, submit, is_same, sendMessage, Message_state, count, isDisabled, random_num, input_random_num };
   }
 });
 </script>
