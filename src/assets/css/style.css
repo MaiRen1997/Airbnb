@@ -41,6 +41,20 @@ a {
 .detail .van-icon-star-o::before {
   font-size: 25px;
 }
+.comment-navbar .van-icon-arrow-left::before {
+  color: black;
+}
+.comment-navbar .van-nav-bar__text {
+  color: black;
+  font-size: 14px;
+}
+.comment .comment-navbar .van-icon::before {
+  font-size: 25px;
+  font-weight: 900;
+}
+.van-icon::before {
+  color: black;
+}
 .navbar-share .van-popup--round {
   border-radius: 0px;
 }

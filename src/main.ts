@@ -33,7 +33,7 @@ import {
   ActionBarIcon, //商品导航
   ActionBarButton,  //商品导航
   ShareSheet,      //分享导航
-  Popup        //弹框
+  Popup,       //弹框
 } from 'vant';
 
 

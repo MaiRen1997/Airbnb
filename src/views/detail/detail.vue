@@ -17,8 +17,9 @@
     <van-icon name="share-o" size="18" @click="showShare = true" />
     <div class="navbar-share">
        <van-share-sheet
-  v-model:show="showShare"
-  :options="options"
+          v-model:show="showShare"
+          :options="options"
+          @select="onSelect"
 />
     </div>
   
@@ -87,7 +88,7 @@
           </ul>
         </div>
         <div class="eject-btn">
-          <van-button type="primary" size="large" color="#000">确认</van-button>
+          <van-button type="primary" size="large" color="#000" @click="ejectnone">确认</van-button>
         </div> 
         </van-popup>
       </li>
@@ -237,10 +238,11 @@ import product from '../../components/Home/ProductCom.vue';
 // import BScroll from '../better-scroll';
 import { getSwipePicApi, getProductPicApi, getLogoApi,getProductdetailApi } from '../../utils/api.ts';
 import { ref } from 'vue';
+import { Toast } from 'vant'
 export default {
   setup() {
-    const showShare = ref(false);
     const show = ref(false);
+    const showShare = ref(false);
     const options = [
       [
         { name: '微信', icon: '/src/assets/detail-img/weixin.png' },
@@ -252,15 +254,21 @@ export default {
         { name: '复制链接', icon: '/src/assets/detail-img/lianjie.png' },
       ],
     ];
-       const showPopup = () => {
+
+      const showPopup = () => {
       show.value = true;
+    };
+     const onSelect = (option) => {
+      Toast(option.name);
+      showShare.value = false;
     };
 
     return {
       options,
       showShare,
       show,
-      showPopup
+      showPopup,
+      onSelect
     };
   },
   data() {
@@ -311,7 +319,12 @@ export default {
         // console.log(res.obj.productsize);
         // console.log(typeof(this.size));
         console.log(res.obj);
-  }}
+  },
+  ejectnone(){
+    this.show=false
+
+  }
+}
 
 }
 </script>

@@ -60,10 +60,18 @@ const routes = [
   },
   {
     path: '/detail',
-    component: () => import('../views/detail/detail.vue')
+    component: () => import('../views/detail/detail.vue'),
     //component: () => import('../views/login/resign.vue')
     // component: () => import('../views/404.vue')
-  },{
+  },
+  {
+    path:'/comment',
+    component: () => import('../views/detail/comment.vue')
+  }, {
+    path:'/shopcart',
+    component: () => import('../views/detail/shopcart.vue')
+  },
+  {
     path:"/:catchAll(.*)",
     component:()=>import("../views/404.vue")
   }
