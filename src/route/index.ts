@@ -56,8 +56,25 @@ const routes = [
   },
   { 
     path: '/resign',
-    component: () => import('../views/login/resign.vue')
+    component: () => import('../views/login/resign.vue'),
+    children:[{
+      path:'input',
+      component: ()=> import('../views/input/input.vue'),
+    }]
+  },
+  {
+    path: '/detail',
+    component: () => import('../views/detail/detail.vue'),
+    //component: () => import('../views/login/resign.vue')
     // component: () => import('../views/404.vue')
+  },
+  {
+    path:'/comment',
+    component: () => import('../views/detail/comment.vue')
+  }, 
+  {
+    path:'/shopcart',
+    component: () => import('../views/detail/shopcart.vue')
   },
   { 
     path: '/list_item',

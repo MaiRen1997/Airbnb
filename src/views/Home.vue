@@ -48,7 +48,6 @@
             </template>
           </van-grid-item>
         </van-grid>
-
         <product :productList="productList"></product>
       </div>
     </div>
@@ -83,6 +82,9 @@ export default {
   },
 
   methods: {
+    imagelode() {
+      this.$refs.scroll.refresh()
+    },
     //请求数据
     async getdata() {
       const res = await getSwipePicApi();

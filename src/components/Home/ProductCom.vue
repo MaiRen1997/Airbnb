@@ -55,6 +55,8 @@ export default {
       text-align: left;
       margin-left: 10px;
       padding: 13px 0;
+      text-align: left;
+      margin-left: 10px
     };
 
     .buyitem {

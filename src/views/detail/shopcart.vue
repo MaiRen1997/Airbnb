@@ -1,23 +1,20 @@
 <template>
-  <div>这是社区页面
-    <van-cell title="显示分享面板" @click="showShare = true" />
-      <van-share-sheet
-        v-model:show="showShare"
-        title="立即分享给好友"
-        :options="options"
-        @select="onSelect"
-      />
-  </div>
-  
+<van-cell title="显示分享面板" @click="showShare = true" />
+<!-- <van-share-sheet
+  v-model:show="showShare"
+  title="立即分享给好友"
+  :options="options"
+  @select="onSelect"
+/> -->
 </template>
 
-<script lang="ts">
+<script>
 import { ref } from 'vue';
 import { Toast } from 'vant';
 
 export default {
- setup() {
-    let showShare = ref(false);
+  setup() {
+    const showShare = ref(false);
     const options = [
       { name: '微信', icon: 'wechat' },
       { name: '微博', icon: 'weibo' },
@@ -39,4 +36,7 @@ export default {
   },
 };
 </script>
-<style lang='less' scoped></style>
+
+<style>
+
+</style>
