@@ -6,15 +6,13 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover"
     />
     <!-- 开启顶部安全区适配 -->
-   <!--  <van-nav-bar safe-area-inset-top /> -->
+  <!--   <van-nav-bar safe-area-inset-top /> -->
     <!-- 顶部标题 -->
     <van-nav-bar
       title="登录"
       left-text="返回"
       left-arrow
       @click-left="onClickLeft"
-      right-text="手机登录"
-      @click-right="goLoginPhone"
     />
     <div class="input_contain">
       <!-- 手机输入框 -->
@@ -64,8 +62,6 @@ import { useRouter } from "vue-router"
 import { loginInApi } from "../../utils/api";
 //引入模态框
 import { Toast, ContactList } from 'vant';
-//引入登录接口
-import { loginUserApi } from '../../utils/api'
 export default defineComponent({
   setup(){
     //使用路由
@@ -90,22 +86,17 @@ export default defineComponent({
         Toast('请输入密码');
         }else{
           if(username.value&&password.value){
-            const res = await loginUserApi({phone:username.value,password:password.value});
+            // console.log(1);
+            const res = await loginInApi({loginname:`${username.value}`,password:`${password.value}`});
             console.log(res);
             if(!res.status){
               window.localStorage.setItem('isLogin','true');
-              window.localStorage.setItem('userID',`${res.obj.userID}`);
-
-              // console.log('登录成功');
-              //跳转到我的页
-
+              console.log('登录成功')
             }
             else{
               Toast('登录失败，请重试');
-              username.value='';
-              password.value='';
             }
-          }  
+          } 
         }
       }
       
@@ -122,23 +113,7 @@ export default defineComponent({
     const forget_passwd = function(){
       router.push("/resetAccount");
     }
-    //去手机登录页面
-    const goLoginPhone = function(){
-      router.push("/loginPhone");
-    }
-    //判断手机号是否符合要求
-    const isPhoneNumber = function(){
-      let flag = phoneReg.test(phoneNumber.value);
-      if(flag){//如果正则判断成功
-        return true;
-      }
-      else{
-        Toast('手机号输入有误');
-        return false;
-      }
-      // console.log(flag);
-    }
-    return { value, submit, username, password, go_resign, forget_passwd, onClickLeft, goLoginPhone, isPhoneNumber };
+    return { value, submit, username, password, go_resign, forget_passwd, onClickLeft };
   }
 });
 </script>
