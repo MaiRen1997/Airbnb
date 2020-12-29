@@ -110,6 +110,11 @@ export default {
       if(hasPhone.status ==0){
         window.localStorage.setItem('isLogin','true');
         window.localStorage.setItem('userID',`${hasPhone.obj.userID}`);
+        //跳转到我的页
+        router.push('/Mine');
+      }
+      else{
+        Toast(`${hasPhone.msg}`);
       }
       
     }

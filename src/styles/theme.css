@@ -1,6 +1,5 @@
 .login {
   height: 100%;
-  background: url(../assets/background.jpg);
   /* 用户 */
 }
 .login .input_contain {
@@ -23,6 +22,7 @@
   padding: 0 10px;
   border: none;
   font-size: 20px;
+  border: 1px solid lightgray;
 }
 .login input::-webkit-input-placeholder {
   font-size: 16px;
@@ -37,6 +37,7 @@
 .login .other_page span {
   margin: 0 20px;
   font-size: 16px;
+  color: white;
 }
 .login .other_page .resign {
   margin-left: 100px;
@@ -63,6 +64,7 @@
   right: 25px;
   font-size: 16px;
   border-radius: 5px;
+  border: 1px solid lightgray;
 }
 .login .active {
   background: greenyellow;
@@ -78,28 +80,28 @@
   font-size: 12px;
   color: red;
 }
-.content {
+.content_list {
   display: flex;
 }
-.content .nav-right {
+.content_list .nav-right {
   flex: 1;
   display: flex;
   justify-content: space-around;
   align-content: space-between;
   flex-wrap: wrap;
 }
-.content .nav-right .item_contain {
+.content_list .nav-right .item_contain {
   display: flex;
   margin-bottom: 10px;
   flex-direction: column;
   border: 1px solid lightgray;
   box-shadow: 5px 5px 5px lightgray ;
 }
-.content .nav-right .item_contain img {
+.content_list .nav-right .item_contain img {
   width: 80px;
   height: 80px;
 }
-.content .nav-right .item_contain .detail_title {
+.content_list .nav-right .item_contain .detail_title {
   width: 80px;
   font-size: 16px;
 }

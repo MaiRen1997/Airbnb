@@ -97,7 +97,7 @@ export default defineComponent({
               window.localStorage.setItem('userID',`${res.obj.userID}`);
 
               // console.log('登录成功');
-              //跳转到我的页
+               router.push('/Mine');
 
             }
             else{

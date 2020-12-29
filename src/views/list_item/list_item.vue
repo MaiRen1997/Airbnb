@@ -14,7 +14,7 @@
       <div @click="onSearch"></div>
     </template>
     </van-search>
-    <div class="content">
+    <div class="content_list">
       <div class="nav-left">
         <!-- 侧边导航栏 -->
         <van-sidebar v-model="activeKey">

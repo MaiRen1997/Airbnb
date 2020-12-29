@@ -25,11 +25,11 @@
       </div>
       <p class="mine_title">购买</p>
       <van-grid :column-num="5" :border='false'>
-        <van-grid-item icon="photo-o" text="待付款" />
-        <van-grid-item icon="photo-o" text="待收货" />
-        <van-grid-item icon="photo-o" text="待发货" />
-        <van-grid-item icon="photo-o" text="退货售后" />
-        <van-grid-item icon="photo-o" text="求购" />
+        <van-grid-item icon="credit-pay" text="待付款" />
+        <van-grid-item icon="logistics" text="待收货" />
+        <van-grid-item icon="send-gift-o" text="待发货" />
+        <van-grid-item icon="after-sale" text="退货售后" />
+        <van-grid-item icon="goods-collect-o" text="求购" />
       </van-grid>
     </div>
     <!-- 中下部工具 -->
@@ -37,15 +37,15 @@
       <div>
         <p class="mine_title">工具</p>
         <van-grid>
-          <van-grid-item icon="photo-o" text="鉴别服务" />
-          <van-grid-item icon="photo-o" text="焕然洗护" />
-          <van-grid-item icon="photo-o" text="95分闲置" />
-          <van-grid-item icon="photo-o" text="发货提醒" />
-          <van-grid-item icon="photo-o" text="达人问答" />
-          <van-grid-item icon="photo-o" text="兴趣达人" />
-          <van-grid-item icon="photo-o" text="客服中心" />
-          <van-grid-item icon="photo-o" text="好友帮选" />
-          <van-grid-item icon="photo-o" text="尺码管理" />
+          <van-grid-item icon="certificate" text="鉴别服务" />
+          <van-grid-item icon="discount" text="焕然洗护" />
+          <van-grid-item icon="upgrade" text="95分闲置" />
+          <van-grid-item icon="completed" text="发货提醒" />
+          <van-grid-item icon="question-o" text="达人问答" />
+          <van-grid-item icon="thumb-circle-o" text="兴趣达人" />
+          <van-grid-item icon="service-o" text="客服中心" />
+          <van-grid-item icon="sign" text="好友帮选" />
+          <van-grid-item icon="medal-o" text="尺码管理" />
         </van-grid>
       </div>
     </div>
@@ -55,7 +55,9 @@
 <script lang='ts'>
 export default {
   data() {
-    return {};
+    return {
+      
+    };
   },
 
   components: {},
