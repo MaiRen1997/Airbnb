@@ -1,7 +1,7 @@
 <template>
   <main class="mianWrapper">
       <div class="content">
-        <div v-for="(item, index) in productList" :key="index" ref="content" class="product">
+        <div v-for="(item, index) in productList" :key="index" ref="content" class="product-shoes">
           <h4>
             {{ item.item }}
           </h4>
@@ -78,7 +78,7 @@ export default {
       });
         
       // 将exist传输给父元素
-      await this.sendExist();
+      this.sendExist();
     }
   }
 };
@@ -86,14 +86,9 @@ export default {
 <style lang='less' scoped>
 .mianWrapper {
     overflow: hidden;
-    position: absolute;
-    top: 98px;
-    left: 0;
-    right: 0;
-    bottom: 0;
   }
 
-  .product {
+  .product-shoes {
     height: 196px;
     padding: 20px 0 20px 20px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.4);

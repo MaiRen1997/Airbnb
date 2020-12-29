@@ -231,6 +231,7 @@ export default {
 
       div {
         position: absolute;
+        text-align: center;
         background: @theme-color;
         font-weight: bold;
         left: 6px;

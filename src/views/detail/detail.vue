@@ -11,15 +11,15 @@
       >
         <template #right>
           <van-icon name="share-o" size="18" @click="showShare = true" />
-          <div class="navbar-share">
-            <van-share-sheet
-              v-model:show="showShare"
-              :options="options"
-            />
-              <!-- @select="onSelect" -->
-          </div>
         </template>
       </van-nav-bar>
+    </div>
+    <div class="navbar-share">
+      <van-share-sheet
+        v-model:show="showShare"
+        :options="options"
+        @select="onSelect"
+      />
     </div>
 
     <!-- 第1张卡片——商品轮播图 -->
@@ -263,17 +263,17 @@ export default {
     const showPopup = () => {
       show.value = true;
     };
-    // const onSelect = (option) => {
-    //   Toast(option.name);
-    //   showShare.value = false;
-    // };
+    const onSelect = (option) => {
+      Toast(option.name);
+      showShare.value = false;
+    };
 
     return {
       options,
       showShare,
       show,
       showPopup,
-      // onSelect,
+      onSelect,
     };
   },
   data() {
