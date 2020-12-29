@@ -9,31 +9,35 @@
       @input="onInput(value)"
       @clear="onClear()"
       @cancel="onCancel(value)"
-      autofocus= true
-      style="margin-top:20px"
+      autofocus="true"
+      style="margin-top: 20px"
     />
 
     <div v-if="show">
       <ul class="maybeList">
-        <li v-for="(item, index) in searchValue" :key="index" @click="mayBeTo(item)">
+        <li
+          v-for="(item, index) in searchValue"
+          :key="index"
+          @click="mayBeTo(item)"
+        >
           {{ item }}
         </li>
       </ul>
     </div>
-    
+
     <div v-else>
-          <!-- 历史记录 -->
+      <!-- 历史记录 -->
       <div class="history">
         <p>历史记录</p>
         <div class="hisBut-1">
           <van-button
-          type="primary"
-          v-for="(item, index) in history"
-          :key="index"
-          size="small"
-          style="margin-left:10px; padding: 0 10px"
-          :to="'/store/'+ item"
-          >{{ item }}
+            type="primary"
+            v-for="(item, index) in history"
+            :key="index"
+            size="small"
+            style="margin-left: 10px; padding: 0 10px"
+            :to="'/store/' + item"
+            >{{ item }}
           </van-button>
         </div>
       </div>
@@ -43,13 +47,13 @@
         <p>搜索发现</p>
         <div class="hisBut-2">
           <van-button
-          type="primary"
-          v-for="(item, index) in his"
-          :key="index"
-          size="small"
-          style="margin-left:10px; margin-bottom:5px; padding: 0 10px"
-          :to="'/store/'+ item"
-          >{{ item }}
+            type="primary"
+            v-for="(item, index) in his"
+            :key="index"
+            size="small"
+            style="margin-left: 10px; margin-bottom: 5px; padding: 0 10px"
+            :to="'/store/' + item"
+            >{{ item }}
           </van-button>
         </div>
       </div>
@@ -59,27 +63,32 @@
         <p>热门搜索</p>
         <div class="hotpic">
           <figure v-for="(item, index) in hotpic" :key="index">
-            <div :class="{ colorred: index === 0,colororange : index === 1,coloryellow : index === 2 }">
+            <div
+              :class="{
+                colorred: index === 0,
+                colororange: index === 1,
+                coloryellow: index === 2,
+              }"
+            >
               {{ index }}
             </div>
-            <img :src="item" alt="">
+            <img :src="item" alt="" />
           </figure>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import { Toast } from 'vant';
-import testImg from '../assets/logo.png';
+import { Toast } from "vant";
+import testImg from "../assets/logo.png";
 
 export default {
   data() {
     return {
-      show:false,
-      value: '',
+      show: false,
+      value: "",
       history: [],
       his: [
         "Jordan",
@@ -94,27 +103,20 @@ export default {
         "kt5",
         "aj1",
         "aj6",
-        "yeezy 350"
+        "yeezy 350",
       ],
       hotpic: [
         "/src/assets/img/周雨彤同款.jpeg",
         "/src/assets/img/nb530白银.jpeg",
-        "/src/assets/img/Nike白绿粉寿桃.jpeg"
+        "/src/assets/img/Nike白绿粉寿桃.jpeg",
       ],
-      searchValue: [
-        "nike",
-        "nike",
-        "nike",
-        "nike",
-        "nike",
-        "nike"
-      ]
+      searchValue: ["nike", "nike", "nike", "nike", "nike", "nike"],
     };
   },
   mounted() {
     if (localStorage.getItem("searchHistory")) {
       this.history = JSON.parse(localStorage.getItem("searchHistory"));
-    };
+    }
   },
   methods: {
     onSearch() {
@@ -125,7 +127,7 @@ export default {
     onInput(val) {
       if (val != "") {
         this.show = true;
-      }else {
+      } else {
         this.show = false;
       }
     },
@@ -138,31 +140,30 @@ export default {
     },
     mayBeTo(val) {
       this.$router.replace(`/store/${val}`);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang='less' scoped>
-@import '../assets/css/style.less';
+@import "../assets/css/style.less";
 .search {
   padding: 0 10px;
 }
 .history {
-
   p {
     font-size: 15px;
     font-weight: lighter;
     text-align: left;
     padding: 20px 0;
-  };
-  
+  }
+
   .hisBut-1 {
     width: 100%;
     overflow: auto;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-  };
+  }
 
   .hisBut-2 {
     width: 100%;
@@ -179,7 +180,7 @@ export default {
 
 .maybeList {
   margin-top: 70px;
-  border-top: 1px solid  rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 
   li {
@@ -193,13 +194,12 @@ export default {
 }
 
 .hot {
-
   p {
-  font-size: 15px;
-  font-weight: lighter;
-  text-align: left;
-  padding: 20px 0;
-  };
+    font-size: 15px;
+    font-weight: lighter;
+    text-align: left;
+    padding: 20px 0;
+  }
 
   .hotpic {
     display: flex;
@@ -218,16 +218,16 @@ export default {
       position: relative;
 
       .colorred {
-        background: #FF0000;
-      };
+        background: #ff0000;
+      }
 
       .colororange {
-        background: #FFA800;
-      };
+        background: #ffa800;
+      }
 
       .coloryellow {
-        background: #FFF000;
-      };
+        background: #fff000;
+      }
 
       div {
         position: absolute;
@@ -248,6 +248,5 @@ export default {
       }
     }
   }
-
 }
 </style>

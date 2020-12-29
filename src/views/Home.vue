@@ -21,30 +21,34 @@
     <!-- better-scroll盒子嵌套 -->
     <div class="wrapper">
       <div class="content">
-
         <!-- 轮播图 -->
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="black">
-          <van-swipe-item class="my-swipe-item" v-for="item in lunbo" :key="item.title">
-             <img :src="item.imgurl" />
+          <van-swipe-item
+            class="my-swipe-item"
+            v-for="item in lunbo"
+            :key="item.title"
+          >
+            <img :src="item.imgurl" />
           </van-swipe-item>
         </van-swipe>
 
         <!-- 导航栏 -->
         <!-- :gutter设置格子间距 -->
         <van-grid class="nav" :border="false">
-          <van-grid-item :text="item.title" v-for="item in logoList" :key="item.logoid" :gutter="6">
+          <van-grid-item
+            :text="item.title"
+            v-for="item in logoList"
+            :key="item.logoid"
+            :gutter="6"
+          >
             <template #icon>
               <figure>
-                <img
-                class="grid-img"
-                :src="item.logoimg"
-                alt=""
-              />
+                <img class="grid-img" :src="item.logoimg" alt="" />
               </figure>
             </template>
           </van-grid-item>
         </van-grid>
-        
+
         <product :productList="productList"></product>
       </div>
     </div>
@@ -52,25 +56,25 @@
 </template>
 
 <script>
-import { Toast } from 'vant';
-import BScroll from 'better-scroll';
-import { getSwipePicApi, getProductPicApi, getLogoApi } from '../utils/api.ts';
-import product from '../components/Home/ProductCom.vue';
+import { Toast } from "vant";
+import BScroll from "better-scroll";
+import { getSwipePicApi, getProductPicApi, getLogoApi } from "../utils/api.ts";
+import product from "../components/Home/ProductCom.vue";
 
 export default {
   data() {
     return {
-      num:0,
-      count:4,
-      start:0,
+      num: 0,
+      count: 4,
+      start: 0,
       lunbo: [],
-      logoList:[],
-      productList:[],
-      imgurl:[]
+      logoList: [],
+      productList: [],
+      imgurl: [],
     };
   },
   components: {
-    product
+    product,
   },
   mounted() {
     this.getdata();
@@ -82,43 +86,50 @@ export default {
     //请求数据
     async getdata() {
       const res = await getSwipePicApi();
-        this.lunbo = res;
+      this.lunbo = res;
     },
     async getProduct() {
-      const res = await getProductPicApi({count: this.count, start: this.start});
+      const res = await getProductPicApi({
+        count: this.count,
+        start: this.start,
+      });
       this.productList = res.result;
 
       //better-scroll车轮滚滚启动
-      await this.$nextTick()
+      await this.$nextTick();
       const bs = new BScroll(".wrapper", {
         scrollX: false,
         scrollY: true,
-        click:true,
-        pullUpLoad: true
+        click: true,
+        pullUpLoad: true,
       });
       //监听滚动到底的事件
-      bs.on("pullingUp", async() => {
+      bs.on("pullingUp", async () => {
         //整理字符串
-        this.start += this.count
+        this.start += this.count;
         //请求数据
-        const res = await getProductPicApi({count: this.count, start: this.start});
+        const res = await getProductPicApi({
+          count: this.count,
+          start: this.start,
+        });
         // 将请求到的数据和之前的数据做合并
         this.productList = this.productList.concat(res.result);
         //需要重新计算better-scroll的高度
         await this.$nextTick();
-          bs.refresh()
-        if ( this.num = this.count) {
+        bs.refresh();
+        if ((this.num = this.count)) {
           bs.finishPullUp();
-        };
-      })
-    },async getlogo() {
+        }
+      });
+    },
+    async getlogo() {
       const res = await getLogoApi();
       this.logoList = res;
     },
     onClickRight() {
-      Toast('还没做');
-    }
-  }
+      Toast("还没做");
+    },
+  },
 };
 </script>
 <style lang="less" scope>
@@ -126,12 +137,12 @@ export default {
 
 .home {
   overflow: hidden;
-  background: #efefef!important;
+  background: #efefef !important;
 }
 .header {
   height: 46px;
   position: relative;
-};
+}
 
 .wrapper {
   position: absolute;
@@ -141,9 +152,9 @@ export default {
   bottom: 50px;
   overflow: hidden;
   background: @background-color;
-};
+}
 
-.my-swipe{
+.my-swipe {
   color: #fff;
   font-size: 20px;
   line-height: 150px;
@@ -158,9 +169,9 @@ export default {
   }
 
   img {
-    height: 100%
+    height: 100%;
   }
-};
+}
 
 .nav {
   padding-top: 5px;
@@ -174,5 +185,5 @@ export default {
     max-width: 60px;
     max-height: 100%;
   }
-};
+}
 </style>

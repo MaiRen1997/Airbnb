@@ -7,7 +7,11 @@
         <van-icon name="arrow-left" size="18" />
       </van-button>
       <!-- 搜索框 -->
-      <van-search class="search" v-model="value" placeholder="请输入搜索关键词" />
+      <van-search
+        class="search"
+        v-model="value"
+        placeholder="请输入搜索关键词"
+      />
       <!-- 右侧按钮 -->
       <van-button type="default">
         <van-icon name="coupon-o" size="18" />
@@ -19,44 +23,55 @@
     <!-- 中部导航 -->
     <div class="navList">
       <p
-      v-for="(item, index) in navList" :key="index"
-      :class="{ active:index === isNavActive, navItem: true}"
-      @click="[navClick(index),showPopup(index)]"
+        v-for="(item, index) in navList"
+        :key="index"
+        :class="{ active: index === isNavActive, navItem: true }"
+        @click="[navClick(index), showPopup(index)]"
       >
         {{ item.name }}
-        <van-icon :name="item.icon" :class="{ rotateIcon: rotatePriceIcon && index === 2}"/>
+        <van-icon
+          :name="item.icon"
+          :class="{ rotateIcon: rotatePriceIcon && index === 2 }"
+        />
       </p>
     </div>
     <!-- 弹出框 -->
     <!-- 报的假错，不用改 -->
-    <van-popup v-model:show="show" position="right" :style="{ width: '85%', height:'100%' }" class="pop">
+    <van-popup
+      v-model:show="show"
+      position="right"
+      :style="{ width: '85%', height: '100%' }"
+      class="pop"
+    >
       <div class="price">
         <h4>价格</h4>
         <div class="searchPrice">
-          <input type="number" min="0" placeholder="最低价"> - 
-          <input type="number" min="0" placeholder="最高价">
+          <input type="number" min="0" placeholder="最低价" /> -
+          <input type="number" min="0" placeholder="最高价" />
         </div>
         <!-- 商品 -->
         <div class="brand">
           <div class="title" @click="showBrandList">
-            <h4>
-              品牌
-            </h4>
+            <h4>品牌</h4>
             <div>
               <span>{{ branzhankai }}&nbsp;</span>
-              <van-icon name="arrow-down" size="12" :class="{rotateIcon: rotateBrandIcon}" />
+              <van-icon
+                name="arrow-down"
+                size="12"
+                :class="{ rotateIcon: rotateBrandIcon }"
+              />
             </div>
           </div>
           <div
-          :style="{height:`${Math.ceil((brandList.length / 3)) * 39}px`}"
-          :class="{ showbrand: hiddenBrand}"
-          class="brandName"
+            :style="{ height: `${Math.ceil(brandList.length / 3) * 39}px` }"
+            :class="{ showbrand: hiddenBrand }"
+            class="brandName"
           >
             <div
-            v-for="(item, index) in brandList"
-            :key="index"
-            :class="{activeBrand:index === isBrandActive}"
-            @click="brandClick(index,item)"
+              v-for="(item, index) in brandList"
+              :key="index"
+              :class="{ activeBrand: index === isBrandActive }"
+              @click="brandClick(index, item)"
             >
               {{ item }}
             </div>
@@ -65,27 +80,28 @@
         <!-- 颜色 -->
         <div class="color">
           <div class="title" @click="showColorList">
-            <h4>
-              颜色
-            </h4>
+            <h4>颜色</h4>
             <div>
-              <span>展开 </span> 
-              <van-icon name="arrow-down" size="12" :class="{rotateIcon: rotateColorIcon}" />
+              <span>展开 </span>
+              <van-icon
+                name="arrow-down"
+                size="12"
+                :class="{ rotateIcon: rotateColorIcon }"
+              />
             </div>
           </div>
           <div
-          :style="{height:`${Math.ceil((colorList.length / 4)) * 45}px`}"
-          :class="{ showcolor: hiddenColor}"
-          class="colorName"
+            :style="{ height: `${Math.ceil(colorList.length / 4) * 45}px` }"
+            :class="{ showcolor: hiddenColor }"
+            class="colorName"
           >
-            <div 
-            v-for="(item, index) in colorList"
-            :key="index"
-            :style="{background:item}"
-            :class="{activeColor:index === isColorActive}"
-            @click="colorClick(index)"
-            >
-            </div>
+            <div
+              v-for="(item, index) in colorList"
+              :key="index"
+              :style="{ background: item }"
+              :class="{ activeColor: index === isColorActive }"
+              @click="colorClick(index)"
+            ></div>
           </div>
         </div>
       </div>
@@ -93,45 +109,45 @@
     <!-- 商品列表 -->
     <product :value="value" @func="getExist" v-if="exist"></product>
     <div v-else>
-      <img :src="nopic" alt="">
+      <img :src="nopic" alt="" />
       暂未找到相关内容
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
-import product from '../components/store/productList.vue';
-import nopic from '../assets/nopic.png';
+import { ref } from "vue";
+import product from "../components/store/productList.vue";
+import nopic from "../assets/nopic.png";
 
 export default {
-   setup() {
+  setup() {
     const show = ref(false);
     const showPopup = (i) => {
-      if(i === 3) {
+      if (i === 3) {
         show.value = true;
-      };
+      }
     };
-    const activeNames = ref(['1']);
+    const activeNames = ref(["1"]);
     return {
       show,
       showPopup,
-      activeNames
+      activeNames,
     };
   },
   data() {
     return {
-      rotatePriceIcon:false,
-      rotateBrandIcon:false,
-      rotateColorIcon:false,
+      rotatePriceIcon: false,
+      rotateBrandIcon: false,
+      rotateColorIcon: false,
       nopic: nopic,
       hiddenBrand: true,
-      hiddenColor:true,
+      hiddenColor: true,
       exist: true,
       value: "",
       isNavActive: 0,
       isBrandActive: -1,
-      branzhankai:"展开",
+      branzhankai: "展开",
       isColorActive: -1,
       brandList: [
         "Nike",
@@ -143,7 +159,7 @@ export default {
         "Vans",
         "李宁",
       ],
-      colorList:[
+      colorList: [
         "#CC0303",
         "#BF0447",
         "#B70098",
@@ -158,18 +174,18 @@ export default {
         "#FFFFFF",
         "#000000",
         "linear-gradient(to bottom,white,black)",
-        "linear-gradient(to bottom,white,grey)"
+        "linear-gradient(to bottom,white,grey)",
       ],
       navList: [
-        {name: "综合", icon:""},
-        {name: "销量", icon:""},
-        {name: "价格", icon:"arrow-up"},
-        {name: "筛选", icon:"completed"}
-      ]
+        { name: "综合", icon: "" },
+        { name: "销量", icon: "" },
+        { name: "价格", icon: "arrow-up" },
+        { name: "筛选", icon: "completed" },
+      ],
     };
   },
   components: {
-    product
+    product,
   },
   mounted() {
     this.value = this.$route.params.value;
@@ -181,11 +197,9 @@ export default {
     },
     navClick(index) {
       this.isNavActive = index;
-      if(index === 2) {
-        this.rotatePriceIcon = true;
-      } else {
-        this.rotatePriceIcon = false;
-      };
+      if (index === 2) {
+        this.rotatePriceIcon = !this.rotatePriceIcon;
+      }
     },
     clickFlag(index) {
       index === 3;
@@ -194,8 +208,8 @@ export default {
       this.hiddenBrand = !this.hiddenBrand;
       this.rotateBrandIcon = !this.rotateBrandIcon;
     },
-    brandClick(index,val) {
-      this.branzhankai = val
+    brandClick(index, val) {
+      this.branzhankai = val;
       this.isBrandActive = index;
     },
     colorClick(index) {
@@ -204,19 +218,19 @@ export default {
     showColorList() {
       this.hiddenColor = !this.hiddenColor;
       this.rotateColorIcon = !this.rotateColorIcon;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang='less' scoped>
-@borderColor:#a9a9a9;
+@borderColor: #a9a9a9;
 
 .store {
   .showbrand {
-    height: 70px!important;
+    height: 70px !important;
   }
   .showcolor {
-    height: 52px!important;
+    height: 52px !important;
   }
   .pop {
     h4 {
@@ -224,7 +238,7 @@ export default {
       line-height: 40px;
       height: 40px;
       text-align: left;
-    };
+    }
 
     .searchPrice {
       display: flex;
@@ -232,15 +246,15 @@ export default {
       padding-bottom: 28px;
 
       input {
-        width: 130px; 
+        width: 130px;
         height: 30px;
         box-sizing: border-box;
         border: 1px solid @borderColor;
         border-radius: 4px;
         font-size: 13px;
         padding-left: 10px;
-      };
-    };
+      }
+    }
 
     .title {
       display: flex;
@@ -249,22 +263,21 @@ export default {
 
       span {
         font-size: 14px;
-      };
-    };
-    
-  };
+      }
+    }
+  }
 
   .search {
     display: flex;
     justify-content: space-between;
     padding: 10px 17px;
     align-items: center;
-  };
+  }
 
   .navList {
     display: flex;
     justify-content: space-around;
-    align-items:center;
+    align-items: center;
 
     .navItem {
       font-size: 12px;
@@ -276,9 +289,8 @@ export default {
     }
 
     .active {
-      color: #EA210C;
+      color: #ea210c;
     }
-  };
+  }
 }
-
 </style>
