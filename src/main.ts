@@ -38,7 +38,11 @@ import {
   Sidebar,
   SidebarItem,
   Cell, 
-  CellGroup
+  CellGroup,
+  Tab,  // Tab 标签页
+  Tabs,  // Tab 标签页
+  Card,
+  SwipeCell
 } from 'vant';
 
 
@@ -85,6 +89,9 @@ app.use(ActionBarButton);
 app.use(ShareSheet);
 // 引入弹框
 app.use(Popup);
+// 引入tab标签页
+app.use(Tab);
+app.use(Tabs);
 
 //使用数字键盘
 // app.use(NumberKeyboard)
@@ -95,4 +102,6 @@ app.use(SidebarItem);
 app.use(Cell);
 app.use(CellGroup);
 app.use(router);
+app.use(Card);
+app.use(SwipeCell);
 app.mount('#app');

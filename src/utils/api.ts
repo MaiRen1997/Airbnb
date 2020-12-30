@@ -22,8 +22,33 @@ const getSwipePicApi = () => http.get("product/searchSwipe");
 const getProductPicApi = (params:object) => http.post("product/searchProduct",params);
 //商品详情
 const getProductdetailApi = (params:object) => http.post("product/searchProductdetailId",params);
-
+//添加购物车
+const addcartApi = (params:object) => http.post("product/addorder",params);
 //logo图标
 const getLogoApi = () => http.get("product/searchLogo");
 
-export { get_list_itemApi, getSwipePicApi, getProductPicApi, getLogoApi,loginInApi, get_list_detailApi, resignApi, loginUserApi, updateUserApi, loginPhoneApi ,getProductdetailApi}
+// 全部订单
+const getAllOrderApi = () => http.get("product/serchall");
+
+// 待付款订单
+const getWaitOrderApi = () => http.get("product/serch");
+
+// 未发货订单
+const getWaitSendApi = () => http.get("product/serchdelive");
+
+// 待收货订单
+const getWaitTakeApi = () => http.get("product/serchdbuy");
+//删除购物车
+const delatecartApi = (params:object) => http.post("product/delate",params);
+
+// 添加评论
+const addCommandApi = (params:object) => http.post("product/addcommand",params);
+//查看评论
+const getCommandApi = () => http.get("product/serchcommand");
+
+//利用手机号查看用户
+const serachuserApi = (params:object) => http.post("user/searchUserId",params);
+
+
+
+export { get_list_itemApi, getSwipePicApi, getProductPicApi, getLogoApi,loginInApi, get_list_detailApi, resignApi, loginUserApi, updateUserApi, loginPhoneApi ,getProductdetailApi, addcartApi, getAllOrderApi, getWaitOrderApi,getWaitSendApi,getWaitTakeApi,delatecartApi,addCommandApi, getCommandApi,serachuserApi}

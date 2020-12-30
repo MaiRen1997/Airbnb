@@ -12,7 +12,10 @@
     <van-icon name="plus" size="18" color="#000" @click="showPopup" />
     <span @click="showPopup">添加</span>
     
-    <van-popup 
+  
+  </template>
+  </van-nav-bar>
+   <van-popup 
     v-model:show="show"
     position="bottom"
     :style="{ height: '100%', width: '100%'}"
@@ -21,6 +24,19 @@
     >
 
     <!-- 输入任意文本 -->
+    <div class="comment-text">
+      <van-cell-group>
+      <van-field v-model="command" placeholder="这一刻我的想法是..." type="textarea" rows="10"/>
+    </van-cell-group>
+    </div>
+
+    <div class="comment-tag">
+      <p><van-icon name="smile-comment" />选择关联话题</p>
+      <span>#不能冻死在2020最后</span>
+      <span>#我的年度穿搭盘点</span>
+      <span>#2021</span>
+    </div>
+    
 
 
 
@@ -32,8 +48,6 @@
 
 
     </van-popup>
-  </template>
-  </van-nav-bar>
 
 </div>
 
@@ -69,7 +83,7 @@
 </template>
 
 <script>
-import { getProductPicApi, getProductdetailApi } from '../../utils/api.ts';
+import { getProductPicApi, getProductdetailApi,addCommandApi,getCommandApi} from '../../utils/api.ts';
 import { ref,reactive } from 'vue';
 export default {
   setup() {
@@ -84,20 +98,25 @@ export default {
 },
   data() {
     return {
+      command:'',
       allcomment:[],
     }
   },
   mounted() {
-    this.getProductdetail();
+    this.getcommand();
   },
   methods:{
-    async getProductdetail() {
-        const res = await getProductdetailApi({productId:1});
-        this.allcomment=JSON.parse(res.obj.comment);
-        console.log(this.allcomment);
+    async getcommand() {
+        const res = await getCommandApi();
+        this.allcomment=res;
+        //console.log(this.allcomment);
         },
-     none(){
+     async none(){
        this.show = false;
+       const res = addCommandApi({command:this.command})
+       //console.log(res);
+       //console.log(this.commmand)
+       location.reload()
      }
     
   }
@@ -113,8 +132,20 @@ export default {
 
 .comment-tag{
   margin: 20px 0;
+  height: 100px;
+  p{
+    font-size: 16px;
+    font-weight: 900;
+    vertical-align: 4px;
+    height: 30px;
+    line-height: 30px;
+    vertical-align: 20px;
+    .van-icon{
+      vertical-align: -8px;
+    }
+  }
   span{
-    background: rgb(235, 235, 235);
+    background: rgb(233, 233, 233);
     padding: 10px;
     margin: 7px;
     font-size: 12px;
@@ -147,7 +178,7 @@ export default {
     .comment-text{
       width: 356px;
       p{
-        font-size: 15px;
+        font-size: 14px;
         text-align:justify;
          display: -webkit-box;
       -webkit-box-orient: vertical;
@@ -174,6 +205,12 @@ export default {
 
   .van-button{
     width: 200px;
+  }
+}
+
+.comment-text{
+  .van-cell-group{
+    margin-top: 100px;
   }
 }
 

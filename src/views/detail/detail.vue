@@ -15,16 +15,15 @@
   >
   <template #right >
     <van-icon name="share-o" size="18" @click="showShare = true" />
-    <div class="navbar-share">
+  </template>   
+  </van-nav-bar>
+     <div class="navbar-share">
        <van-share-sheet
           v-model:show="showShare"
           :options="options"
           @select="onSelect"
 />
     </div>
-  
-  </template>   
-  </van-nav-bar>
 </div>
 
 
@@ -49,8 +48,14 @@
       <van-icon name="arrow" />
     </span>
   </div>
-  <div class="infor-img">
-    <img :src="item.url" alt="" v-for="item in color">
+  <div class="infor-img"  >
+    <img 
+    :src="item.url" 
+    alt="" 
+    v-for="(item,index) in color"
+    @click="changeStyle(item,index)"
+    :class="{changeStyle:changeSelectStyle == index}"
+     >
     </div>
   <div class="infor-size">
     <div class="choose">
@@ -58,7 +63,10 @@
     </div>
     <div class="all-size">
       <ul class="size-list clearfix">
-      <li v-for="(item,index) in small" :key="index">
+      <li v-for="(item,index) in small" :key="index"  
+      :class="{changeSizeStyle:selectsize == index}"
+      @click="changeSize(item,index)"
+      >
         <p>{{ item.size }}</p>
         <p>￥{{ item.price }}</p>
       </li>
@@ -224,7 +232,7 @@
 <div>
   <van-action-bar>
   <van-action-bar-icon icon="star-o" @click="onClickIcon" />
-  <van-action-bar-button text="立即购买" color="#000" @click="onClickButton" />
+  <van-action-bar-button text="加入购物车" color="#000" @click="addcart" />
 </van-action-bar>
 </div>
 
@@ -236,7 +244,7 @@
 import product from '../../components/Home/ProductCom.vue';
 
 // import BScroll from '../better-scroll';
-import { getSwipePicApi, getProductPicApi, getLogoApi,getProductdetailApi } from '../../utils/api.ts';
+import { getSwipePicApi, getProductPicApi, getLogoApi,getProductdetailApi,addcartApi } from '../../utils/api.ts';
 import { ref } from 'vue';
 import { Toast } from 'vant'
 export default {
@@ -284,7 +292,12 @@ export default {
       swiper:[],
       comment:[],
       allcomment:[],
-      small:[]
+      small:[],
+      changeSelectStyle:0,
+      selectsize:0,
+      chosenSize:'',
+      chosenColor:'',
+      chosenPrice:''
     }
   },
   components: {
@@ -315,15 +328,40 @@ export default {
         // console.log(this.comment);
 
 
-        console.log(res.obj.productsize);
+        //console.log(res.obj.productsize);
         // console.log(res.obj.productsize);
         // console.log(typeof(this.size));
-        console.log(res.obj);
+        //console.log(res.obj);
   },
   ejectnone(){
     this.show=false
-
-  }
+  },
+  changeStyle(item,index){
+    this.changeSelectStyle=index
+    this.chosenColor=item.color;
+  },
+  changeSize(item,index){
+    this.selectsize=index;
+    this.chosenSize=item.size;
+    this.chosenPrice=item.price;
+    //console.log(item)
+    console.log(this.chosenPrice)
+    console.log(this.swiper[0],this.detail.producttitle);
+  },
+  async addcart() {
+    //console.log(this.chosenColor,this.chosenSize,this.chosenPrice)
+   const res = await addcartApi(
+  {
+    productId:1,
+    color:this.chosenColor,
+    size:this.chosenSize,
+    price:this.chosenPrice,
+    img:this.swiper[0],
+    title:this.detail.producttitle
+    });
+  console.log(res);
+  this.$router.push("/shopcart")
+}
 }
 
 }
@@ -384,13 +422,14 @@ export default {
         display: none;
       }
       img{
-        width: 60px;
-        height: 45px;
+        width: 75px;
+        height: 68px;
         margin-right: 15px;
         margin-top: 10px;
         border: 1px dashed #ccc;
         border-radius: 5px;
         padding: 10px 5px;
+        box-sizing: border-box;
       }
     }
     .infor-size{
@@ -421,7 +460,7 @@ export default {
         }   
         .all-size{
             .size-list{
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 500;
         width: 300px;
         height: 32px;
@@ -675,7 +714,7 @@ export default {
   margin-top: 7px;
   padding: 10px;
   background: #fff;
-  height: 590px;
+  height: 610px;
   box-sizing: border-box;
 
   img{
@@ -783,7 +822,16 @@ export default {
 }
 
 
-
+ .changeStyle{
+      border: 2px solid rgb(0, 0, 0)!important;
+      
+    }
+  
+  .changeSizeStyle{
+    font-weight: 900;
+    color: rgb(0, 0, 0)!important;
+    font-size: 12px;
+  }
 
 
 </style>

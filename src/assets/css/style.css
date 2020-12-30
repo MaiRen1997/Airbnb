@@ -55,6 +55,30 @@ a {
 .van-icon::before {
   color: black;
 }
+.shopcart-pay .van-tab--active {
+  font-weight: 900;
+}
+.goods-card .van-card {
+  background: #fff;
+  padding: 0px;
+  margin: 10px 0;
+}
+.goods-card .van-card .van-card__title {
+  font-size: 14px;
+}
+.goods-card .van-card .van-card__desc {
+  color: #ccc;
+}
+.goods-card .van-card .van-card__header .van-card__thumb .van-image img {
+  border: 1px solid #f0f0f0;
+  border-radius: 0px ;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.goods-card .van-card__bottom .van-card__price {
+  font-weight: 900;
+  font-size: 16px;
+}
 .navbar-share .van-popup--round {
   border-radius: 0px;
 }

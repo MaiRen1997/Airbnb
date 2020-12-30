@@ -1,0 +1,160 @@
+.login {
+  height: 100%;
+  background: url(../assets/background.jpg);
+  /* 用户 */
+}
+.login .input_contain {
+  width: 100%;
+  height: 710px;
+  padding-top: 50px;
+}
+.login .phone {
+  margin-bottom: 30px;
+  height: 50px;
+  position: relative;
+}
+.login .password {
+  margin-bottom: 30px;
+}
+.login input {
+  width: 80%;
+  height: 50px;
+  border-radius: 25px;
+  padding: 0 10px;
+  border: none;
+  font-size: 20px;
+}
+.login input::-webkit-input-placeholder {
+  font-size: 16px;
+}
+.login .van-button {
+  width: 80%;
+  margin-bottom: 20px;
+}
+.login .other_page {
+  width: 80%;
+}
+.login .other_page span {
+  margin: 0 20px;
+  font-size: 16px;
+}
+.login .other_page .resign {
+  margin-left: 100px;
+}
+.login .van-search {
+  margin-bottom: 30px;
+}
+.login .van-search__content {
+  height: 50px;
+  line-height: 50px;
+}
+.login .van-field__body {
+  height: 100%;
+}
+.login .van-field__control {
+  height: 80%;
+}
+.login .send_msg {
+  position: absolute;
+  width: 100px;
+  height: 53px;
+  line-height: 50px;
+  top: 0px;
+  right: 25px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+.login .active {
+  background: greenyellow;
+}
+.login .dead {
+  background: lightgray;
+}
+.login .check_pwd {
+  margin-bottom: 30px;
+  width: 100%;
+}
+.login .check_pwd .remind {
+  font-size: 12px;
+  color: red;
+}
+.content_list {
+  display: flex;
+}
+.content_list .nav-right {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  align-content: space-between;
+  flex-wrap: wrap;
+}
+.content_list .nav-right .item_contain {
+  display: flex;
+  margin-bottom: 10px;
+  flex-direction: column;
+  border: 1px solid lightgray;
+  box-shadow: 5px 5px 5px lightgray ;
+}
+.content_list .nav-right .item_contain img {
+  width: 80px;
+  height: 80px;
+}
+.content_list .nav-right .item_contain .detail_title {
+  width: 80px;
+  font-size: 16px;
+}
+.mine_contain {
+  background-color: #f3f3f3;
+}
+.mine_contain .top {
+  margin-top: 50px;
+  background: white;
+  display: flex;
+  height: 110px;
+}
+.mine_contain .top .person_icon {
+  margin-top: 20px;
+  margin-left: 20px;
+  flex: 3;
+  border-radius: 50% 50%;
+  background: lightpink;
+}
+.mine_contain .top .person_info {
+  flex: 8;
+  margin-top: 30px;
+}
+.mine_contain .center {
+  background: white;
+  text-align: left;
+  margin-bottom: 5px;
+}
+.mine_contain .center .history {
+  display: flex;
+}
+.mine_contain .center .history .history_left {
+  flex: 4;
+}
+.mine_contain .center .history .history_right {
+  flex: 4;
+}
+.mine_contain .center .mine_title {
+  height: 50px;
+  line-height: 50px;
+  text-indent: 15px;
+  font-size: 20px;
+  font-weight: bolder;
+}
+.mine_contain .center_bottom {
+  background: white;
+  text-align: left;
+}
+.mine_contain .center_bottom .mine_title {
+  height: 50px;
+  line-height: 50px;
+  text-indent: 15px;
+  font-size: 20px;
+  font-weight: bolder;
+}
+.mine_contain .formate {
+  font-weight: bolder;
+}
