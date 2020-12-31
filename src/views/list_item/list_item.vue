@@ -6,7 +6,7 @@
     <van-search
       v-model="value"
       show-action
-      label="地址"
+      label=""
       placeholder="请输入搜索关键词"
       @search="onSearch"
     >
