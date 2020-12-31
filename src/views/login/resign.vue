@@ -228,7 +228,7 @@ export default defineComponent({
           this.Message_state = ref('获取验证码');
           isDisabled.value = false;
       }
-      }, 100);
+      }, 1000);
       //生成随机验证码
       this.random_num = parseInt(Math.random()*1000000);
       Notify({

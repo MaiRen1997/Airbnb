@@ -7,7 +7,13 @@
 
     </div>
     <div class="person_info">
-      <van-cell title="昵称"  size="large" label="个性签名" is-link />
+      <van-cell
+        title="昵称"
+        size="large"
+        label="个性签名"
+        is-link
+        @click="goOther"
+      />
     </div>
     
     </div>
@@ -66,7 +72,15 @@ export default {
 
   mounted() {},
 
-  methods: {}
+  methods: {
+    goOther(){
+      if(window.localStorage.isLogin){
+        this.$router.push();
+      }else{
+        this.$router.push("/loginPassword");
+      }
+    }
+  }
 };
 </script>
 <style lang='less' scoped></style>
